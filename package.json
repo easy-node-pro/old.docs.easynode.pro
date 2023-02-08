@@ -1,5 +1,5 @@
 {
-  "name": "example-docs",
+  "name": "guides.easynode.pro",
   "private": true,
   "main": "index.js",
   "license": "MIT",
@@ -27,6 +27,9 @@
     "nextra-theme-docs": {
       "injected": true
     }
+  },
+  "engines": {
+    "node": "19.x"
   },
   "version": null,
   "devDependencies": {
