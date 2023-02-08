@@ -9,17 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shuding/nextra-docs-template.git"
+    "url": "git+https://github.com/easy-node-pro/guides.easynode.pro.git"
   },
-  "author": "Shu Ding <g@shud.in>",
+  "author": "Patrick Mogul <patrick@easynode.pro>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shuding/nextra-docs-template/issues"
+    "url": "https://github.com/easy-node-pro/guides.easynode.pro/issues"
   },
-  "homepage": "https://github.com/shuding/nextra-docs-template#readme",
+  "homepage": "https://github.com/easy-node-pro/guides.easynode.pro#readme",
   "dependencies": {
-    "@sentry/nextjs": "^7.27.0",
-    "@vercel/edge-config": "^0.1.0",
     "next": "^13.1.5",
     "nextjs-google-analytics": "^2.3.0",
     "nextra": "2.2.13",
