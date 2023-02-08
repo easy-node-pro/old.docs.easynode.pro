@@ -1,0 +1,259 @@
+import { Callout } from 'nextra-theme-docs'
+import { useSSG } from 'nextra/ssg'
+import { Tab, Tabs } from "nextra-theme-docs";
+
+export const getStaticProps = ({ params }) => {
+  return fetch(`https://api.github.com/repos/easy-node-pro/harmony-toolbox`)
+    .then((res) => res.json())
+    .then((repo) => ({
+      props: {
+        // We add an `ssg` field to the page props,
+        // which will be provided to the Nextra `useSSG` hook.
+        ssg: {
+          stars: repo.stargazers_count,
+        },
+      },
+      // The page will be considered as stale and regenerated every 60 seconds.
+      revalidate: 60,
+    }))
+}
+
+export const Stars = () => {
+  // Get the data from SSG, and render it as a component.
+  const { stars } = useSSG()
+  return <strong>{stars}</strong>
+}
+
+# Harmony Toolbox Intro
+The [Harmony Validator Toolbox](https://github.com/easy-node-pro/harmony-toolbox) is designed to help Harmony validators install the Easy Node Validator Toolbox and get online asap. This is not for beginner Harmony Validators.
+![Harmony Loading](/harmony_loader.png)
+
+## Github Repository
+Harmony Validator Toolbox repository has <Stars /> 🌟 on [GitHub](https://github.com/easy-node-pro/harmony-toolbox). 
+
+If you enjoy our validator toolbox software can you head to our page and give us a 🌟 today? Thank you!
+
+### Code Stats
+- [![Codacy Badge](https://app.codacy.com/project/badge/Grade/215c4479f0304b40a535f7e84ce75f55)](https://www.codacy.com/gh/easy-node-pro/harmony-toolbox/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=easy-node-pro/harmony-toolbox&amp;utm_campaign=Badge_Grade)
+- [![Codacy Security Scan](https://github.com/easy-node-pro/harmony-toolbox/actions/workflows/codacy.yml/badge.svg?branch=main)](https://github.com/easy-node-pro/harmony-toolbox/actions/workflows/codacy.yml)
+- [![Discord Badge](https://img.shields.io/badge/chat-discord-purple?logo=discord)](https://discord.gg/Rcz5T6D9CV)
+- [![Stake Now Badge](https://img.shields.io/badge/stake-harmony-brightgreen)](https://bit.ly/easynode)
+
+### Server Prep
+We covered most of these things in the [admins tools section](/admin) but here's what you need:  
+- Linux server running Ubuntu 20.04/22.04 LTS
+- A regular user acocunt with root access
+  
+That's it for the requirements, you're ready to connect to your new server and install the Harmony Validator Server Node software.
+
+## Toolbox Installation Guide
+Now that you're logged in and ready to go as your regular user account, here's the steps to installation! The harmony-toolbox application can be installed on existing nodes to utilize the management menu along with running on brand new servers to setup the Harmony Validator software.  
+
+### Installation Video
+We put together a video going over the toolbox, you can catch that here!  
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mtlgZQc7BjM" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
+#### Ubuntu Dependencies
+Install Ubuntu dependencies, clone our Github repository, and install Python Requirements with the following command:
+
+```text copy
+sudo apt-get install dnsutils git python3-pip python3-dotenv unzip tmux -y && cd ~/ && git clone https://github.com/easy-node-pro/harmony-toolbox.git && cd ~/harmony-toolbox && pip3 install -r requirements.txt
+```
+
+#### Launch Validator Toolbox
+If this is the first time launching the toolbox you'll get prompted to answer some questions before we install Harmony on the new server! To start installation run:
+
+```text copy
+python3 ~/harmony-toolbox/src/install.py
+```
+
+### The Setup Menus
+Here's more information about each setup menu along the way!
+
+#### Loading Screen
+![Just our loading screen, first time you run it, the bottom banner will read this.](/harmony_loader.png)
+
+#### First run detected!
+![First run, first menu](/image_38.png)
+
+**Start Installer Application**
+Run this option if you are loading a brand new server for the very first time.
+
+**Start Validator Toolbox Menu**
+Run this option if you are loading the toolbox on a server that is already running as a harmony validator node.
+
+#### Shard Choice
+![Pick a shard, any shard!](/image_39.png)
+
+Simply pick the shard this node will run on. It's a personal preference, although we suggest looking at the [smart stake site](https://harmony.smartstake.io/election) and determining which shard of 1-3 has the lowest # of keys and using that shard.
+
+#### Node Type
+![Pick your node type](/image_33.png)
+
+**Standard Signing Node**
+Known to most as a "Harmony Validator" this option loads a wallet and saves your passphrase in ~/harmony/passphrase.txt
+
+**Full Node Non Validating Dev/RPC**
+Choose this option to load a system that doesn't use a wallet. Mostly used by developers and RPC services
+
+#### Testnet or Mainnet
+![Choose testnet or mainnet for your server](/image_34.png)
+
+**Mainnet**
+
+The main Harmony ONE Blockchain for normal operations.
+
+**Testnet**
+
+The Harmony ONE Testnet, use with test tokens. You can [visit our discord community](https://discord.gg/babnYCEZ7Q) if you need test network coins, we have plenty.
+
+#### Express Install or Manual Choices
+![Express or Manual?](/image_41.png)
+
+**Express Install**
+
+Assumes you want the kitchen sink for your validator. 
+
+**Manual Approval**
+This lets you choose y/n on every option along the way.
+
+#### Password File \(Regular Signing Validator Nodes Only\)
+![Password prompt, enter your wallet password, confirm it to continue](/image_16.png)
+
+Enter a password for your wallet on this node. It's unique to this server
+
+#### Recover Wallet \(Regular Signing Validator Nodes Only\)
+![Recover mnemonic phrase into wallet directly](/image_40.png)
+
+Add your mnemonic phrase here directly into the hmy file interface. We do not store or save this information.
+
+**New Users** - If you do not have a wallet yet, press ctrl+c to skip wallet recovery and after installation you can manually create or import a wallet of your choosing.
+
+### Clone Shards
+You will now start cloning your shards. If you choose shard 1-3 that shard will download before shard 0. You can press ctrl+c to cancel downloading of any shard to move past that download.
+
+![Shard 1 Incoming](/image_23.png)
+
+![Shard 0 on the way!](/image_36.png)
+
+#### Install completed!
+![Install complete!](/image_17.png)
+
+As mentioned earlier, if you do not have sudoless root access, you will be prompted for a password, which is often several lines up from the bottom of the screen and [sometimes hard to see](/harmony/toolbox/post#sudoless-root-skipped---application-install-starts-and-freezes-up).
+
+## First Time Validator Extra Steps
+The next 3 sections need to be completed **after running the toolbox installer** but before running the management menu application for the first time as a brand new validator only. Since you're an experienced validator you should have already completed everything in this guide. I've left this for new people who may be attempting to "jump the line".
+
+### Create A Wallet
+See our notes on [setting up a wallet here](/harmony/companion#validator-wallet) if you made it this far without one.
+
+### BLS Keys
+See our notes on [creating BLS Keys here](/harmony/companion#bls-keys) but if you are this far you should already have these.
+- Backup (transfer/save) your .key & .pass files onto your home system for re-use in the future
+- New keys can be created at anytime and added to your validator for use after the next election
+- BLSKeys are hard coded to the shard you create them for, this cannot be changed
+
+### Creating a Validator
+Here's the example command given in the official guide below. I'll suggest some updates and give an example command in the following steps.
+
+<Tabs
+  items={["Create Mainnet", "Create Testnet"]}
+  defaultIndex="0"
+>
+  <Tab>
+    ```text copy
+    ./hmy --node="https://api.s0.t.hmny.io" staking create-validator \
+        --validator-addr [ONE ADDRESS] --amount 10000 \
+        --bls-pubkeys [BLS PUBLIC KEY1],[BLS PUBLIC KEY2] \
+        --name "[NAME]" --identity "[IDENTITY]" --details "DETAILS" \
+        --security-contact "CONTACT" --website "YOUR-WEBSITE.COM" \
+        --max-change-rate 0.1 --max-rate 0.1 --rate 0.1 \
+        --max-total-delegation 100000000 --min-self-delegation 10000 --passphrase --gas-price 100
+    ```
+  </Tab>
+  <Tab>
+    ```text copy
+    ./hmy --node="https://api.s0.b.hmny.io" staking create-validator \
+        --validator-addr [ONE ADDRESS] --amount 10000 \
+        --bls-pubkeys [BLS PUBLIC KEY1],[BLS PUBLIC KEY2] \
+        --name "[NAME]" --identity "[IDENTITY]" --details "DETAILS" \
+        --security-contact "CONTACT" --website "YOUR-WEBSITE.COM" \
+        --max-change-rate 0.1 --max-rate 0.1 --rate 0.1 \
+        --max-total-delegation 100000000 --min-self-delegation 10000 --passphrase --gas-price 100
+    ```
+  </Tab>
+</Tabs>
+
+**Copy the entire command. Extra white spaces in the command could cause errors.**
+
+Name, identity, details, security-contact and website need to be put in double quotes if there are more than one word separated by space \(example --name "John the validator"\).
+
+## Post Install Suggestions
+You want to setup your logo for the validator. [Here's the Adding A Validator Logo](https://docs.harmony.one/home/network/validators/managing-a-validator/adding-a-validator-logo) section of the official guide that will get you set up with an identity string. We suggest including the identity string in your create-validator command.
+ 
+With that in mind, the only extra item we suggest to include is the --identity information. Here's an example with a fake address and information as an example.
+
+<Tabs
+  items={["Create Mainnet", "Create Testnet"]}
+  defaultIndex="0"
+>
+  <Tab>
+    ```text copy
+    ./hmy --node="https://api.s0.t.hmny.io" staking create-validator \
+        --validator-addr one1rka0v5rct0857f2f*6ahn0cyd89uvravr3yjw --amount 10000 \
+        --bls-pubkeys a243b3a090063bae6aeca9215*05de1a94a033c50ab98ed98c50ab98ed984c9cf23513585e1af0cc4c9cf23513585e1af0cc \
+        --name "My Awesome Validator" --identity 05de1a94a0*33c50ab98ed98 --details "All your validator notes that show up on the staking.harmony.one site" \
+        --security-contact "myemail@address.com" --website "your-website.com" \
+        --max-change-rate 0.1 --max-rate 0.1 --rate 0.1 \
+        --max-total-delegation 100000000 --min-self-delegation 10000 --passphrase --gas-price 100
+    ```
+  </Tab>
+  <Tab>
+    ```text copy
+    ./hmy --node="https://api.s0.b.hmny.io" staking create-validator \
+        --validator-addr one1rka0v5rct0857f2f*6ahn0cyd89uvravr3yjw --amount 10000 \
+        --bls-pubkeys a243b3a090063bae6aeca9215*05de1a94a033c50ab98ed98c50ab98ed984c9cf23513585e1af0cc4c9cf23513585e1af0cc \
+        --name "My Awesome Validator" --identity 05de1a94a0*33c50ab98ed98 --details "All your validator notes that show up on the staking.harmony.one site" \
+        --security-contact "myemail@address.com" --website "your-website.com" \
+        --max-change-rate 0.1 --max-rate 0.1 --rate 0.1 \
+        --max-total-delegation 100000000 --min-self-delegation 10000 --passphrase --gas-price 100
+    ```
+  </Tab>
+</Tabs>
+
+### All of the options explained
+Decide on your max-change-rate and max-rate **_before sending_** your command. These **_cannot be modified_** after you have sent your create validator command, like ever!
+
+<Callout type="warning" emoji="⚠️">
+  Here's all of the options you will customize before sending your create command.<br />
+  validator-addr - Your Validator wallet with 10001+ coins available to delegate at least 10k.  
+  amount - Must be at least 10k. Have extra one available for fees. 1 $ONE is enough currently.  
+  bls-pubkeys - Your BLS public key  
+  name - The name you want listed on the validator staking page  
+  identity - Your validator logo string you made earlier  
+  details - The details you want on the validator staking page  
+  security-contact - Your email address  
+  website - Your website or social media account  
+  max-change-rate - Maximum you can adjust your rate in a 24 hour period, **you can never change this**!  
+  max-rate - Maximum rate you can charge as a fee on your validator, **you can never change this**!  
+  rate - Your current fee rate  
+  max-total-delegation - The max $ONE that can be delegated by one single wallet  
+  min-self-delegation - Must be at least 10k, you can leave this at 10k.  
+</Callout>
+
+## Commands
+Now it's installed, how do we start it up?
+
+### Launch Toolbox Menu
+To launch the Management Menu we suggest the following string to check for updates and launch each time you'd like to run the menu:
+
+```text copy
+cd ~/harmony-toolbox && git pull && pip3 install -r requirements.txt --quiet && cd ~/harmony && python3 ~/harmony-toolbox/src/menu.py
+```
+
+### Get Stats
+If you'd like to get only your stats without launching the full toolbox, run the following command:
+
+```text copy
+python3 ~/harmony-toolbox/src/multi_stats.py
+```

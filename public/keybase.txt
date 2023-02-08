@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/omnibotzzzz
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://easynode.one
+  * I am omnibotzzzz (https://keybase.io/omnibotzzzz) on keybase.
+  * I have a public key ASB4-tRTvy-0I4X8BQLvrQovUgxejvUAkr_yFPJJK-PsTwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "012078fad453bf2fb42385fc0502efad0a2f520c5e8ef50092bff214f2492be3ec4f0a",
+      "host": "keybase.io",
+      "kid": "012078fad453bf2fb42385fc0502efad0a2f520c5e8ef50092bff214f2492be3ec4f0a",
+      "uid": "0d9a3d2f24b99bcb8f31e7314bc2c019",
+      "username": "omnibotzzzz"
+    },
+    "merkle_root": {
+      "ctime": 1630812937,
+      "hash": "f44b286b85213f5daaf22ca503ff12c013c506997f4aa8478f2fe1312ea58d8de1b008904e11a70370a2e8b7c83a3a3d06feb6b2e59d8c941f26b18ba089bcce",
+      "hash_meta": "9eb6b0a7cb39e05d28fccac7598139020f2b1447f7bdd27e37dc01fd53bbe1b7",
+      "seqno": 20700748
+    },
+    "service": {
+      "entropy": "PjtlXm1UbPhycoYH2cnnoRAp",
+      "hostname": "easynode.one",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.7.0"
+  },
+  "ctime": 1630812944,
+  "expire_in": 504576000,
+  "prev": "21d4dd20fb0c79a32ff701ebb3e4b18cd27a40403b156a69685a19a2d1ffa6f2",
+  "seqno": 43,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgePrUU78vtCOF/AUC760KL1IMXo71AJK/8hTySSvj7E8Kp3BheWxvYWTESpcCK8QgIdTdIPsMeaMv9wHrs+SxjNJ6QEA7FWppaFoZotH/pvLEII6ucE8SO3rdGh/xG8ZQaiCBNYWOYcrqC1Tf3WEw0AJqAgHCo3NpZ8RAJvmXXadBd6HSCMCVNuZT6YgO9MHq0C8j+evijcjUk308yu1nzDSOih0UzThn4M0vrB3FJqt0nbx7oNrpscKdBahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIOdIa5wIxnjbe6ckexZwCDbcUs0qjPGqqFDNheRxvmbCo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/omnibotzzzz
+
+==================================================================

@@ -1,0 +1,329 @@
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# Easy Node's Post Install Tips
+
+Here's a few things to know and check up on after you get a Findora server online.
+
+## Toolbox help
+You can find our baked in options and help menu by running:  
+```text copy
+python3 ~/findora-toolbox/src/app.py -h
+```
+
+![Our help menu options as of 1/13/2023](/fra_help_options.png)
+
+- -h, --help - Show the help menu
+- -s, --stats - Show your stats without loading the full toolbox
+- -c, --claim - Claim all of your pending rewards
+- --mainnet - Run the installer with the mainnet option by default
+- --testnet - Run the installer with the testnet option by default
+- --reset - This will wipe all of your findora data, settings, and toolbox settings to allow a reload of Findora
+
+## Finish setup
+
+To finish the setup of a scripted or toolbox installation and to start siging blocks, you need to complete this section of tasks first.
+
+### Create staker_memo file
+If you used the validator toolbox to install, you'll have a staker_memo file in your home directory. If you installed manually or the script you'll need to create the file staker_memo in your home directory.  
+
+To create the file or to open the example we've created run:
+
+```text copy
+nano ~/staker_memo
+```
+
+You can copy the following data if you're creating a new file:
+
+```text copy
+{
+  "name": "Example Node!",
+  "desc": "I am just an example description. Please change me to something better.",
+  "website": "https://www.example.com",
+  "logo": "https://www.example.com/logo.png"
+}
+```
+
+You can now edit your future validator information. This file defines your validator name, description, your website, and logo to display which you'll send to the blockchain when you run the create validator command. We suggest ipfs for logo hosting, use your free account at [pinata.cloud](https://pinata.cloud).  
+
+After you update your info save and exit staker_memo with:  
+
+```text
+ctrl+x y enter
+```
+
+### Fund Validator
+
+You can see your FRA validator address by running `fn show` or toolbox optioin #2. This is the address you'll want to send at least 10,001 FRA into for staking when you create your validator.
+
+### Validator Wallet Commands
+
+Here we're going to cover the command to create your validator and the commands you'll use after you've created your validator.  
+
+<Tabs items={["Create Validator", "Update Validator Info", "Update Fee", "Update Both!"]} defaultIndex="0">
+  <Tab>
+    Here's an example of the creation command. Note that you only are able to send the creation command one time. Customize this command to your needs before sending:
+
+    ```text copy
+    fn stake -n $((15000 * 1000000)) -R 0.02 -M "$(cat staker_memo)"
+    ```
+
+    To breakdown the command below:
+
+    - Stake 15,000 FRAs with a commision rate of 2% using your staker_memo file
+    - Note: that is 15000 \* 1000000 FRA units in the example
+  </Tab>
+  <Tab>
+    Simply edit your staker_memo file and then re-submit the updated information with following command:  
+
+    ```text copy
+    fn staker-update -M "$(cat staker_memo)"
+    ```
+  </Tab>
+  <Tab>
+    If you would like to change your commission simply add the `-R` flag and your new rate, this is an example to set it to 5% commission:  
+
+    ```text copy
+    fn staker-update -R 0.05
+    ```
+  </Tab>
+  <Tab>
+    If you would like to update both at the same time you can chain the commands together, ie:  
+
+    ```text copy
+    fn staker-update -M "$(cat staker_memo)" -R 0.05
+    ```
+  </Tab>
+</Tabs>
+
+## Common Commands
+
+The most commonly used commands and how to find the rest that may be needed.
+
+<Tabs items={["Check Status and Versions", "Check Docker Logs"]} defaultIndex="0">
+  <Tab>
+    The command below will run and display your stats via validator toolbox:  
+
+    ```text copy
+    python3 ~/findora-toolbox/src/app.py -s
+    ```
+
+    You can also run this remotely from your home terminal via ssh. Customize the command below with your Findora server username, IP and port. Run the command to pull stats remotely:  
+
+    ```text copy
+    ssh [USERNAME]@[IP] -p [PORT] python3 /home/servicefindora/findora-toolbox/src/app.py -s
+    ```
+
+  </Tab>
+  <Tab>
+    When troubleshooting, always check your Docker logs for issues if your container is not running (use `docker ps` to see if your container is online):
+
+    ```text copy
+    docker logs -f findorad
+    ```
+  </Tab>
+</Tabs>
+
+## View Your Stats Online
+
+After you sucessfully register your wallet and stake your initial Findora your validator will show up on the [staking dashboard](https://findorascan.io/nodes) along with the [SmartStake site](https://findora.smartstake.io/).
+
+## Backup Key Files
+
+If you used the scripted or toolbox method all the files you need to backup will be stored in `~/findora_backup` for safe keeping automatically. Transfer this folder home using an sFTP program or command line utility.
+
+<Tabs items={["Files to Backup", "Termius/winSCP/Filezilla Backup", "rsync/scp Backup"]} defaultIndex="0">
+  <Tab>
+    If you'd like to backup manually and aren't using the toolbox here's a list of key files to backup and to keep private at all times!
+
+    ```text
+    - tmp.gen.keypair - This file is the same as your network_node.key file (network being mainnet or testnet)
+    - /data/findora/[network]/tendermint/config folder - This is a copy of your tendermint/config folder which contains priv_validator_key.json
+    ```
+
+    Optionally you should backup your staker_memo file for re-using later.
+  </Tab>
+  <Tab>
+    If you're using Termius simply backup the `~/findora_backup` folder to your PC at home along with staker_memo.
+  </Tab>
+  <Tab>
+    If you'd like to use your local terminal to pull the files from your server to your system run the following commands:
+
+    ```text copy
+    # Customize this command with your username and IP address. 
+    rsync -av user@ip_address:~/findora_backup .
+    scp user@ip_address:~/staker_memo .
+    ```
+
+    This will use your ssh keys or ask for a password depending on your setup. The `.` is the local location. Using `.` will copy it to the current folder, customize it to save elsewhere.  
+
+  </Tab>
+</Tabs>
+
+## Findora Validator Troubleshooting
+
+### Validator Toolbox
+
+The toolbox does automated troubleshooting when you fire it up. We'll make sure everything is online before loading or walk you through running the "update/restart script" and then the safety_clean script if the first option doesn't bring your validator back online.  
+
+### Manual Troubleshooting
+
+If you need to manually troubleshoot, here's our recommended process. First determine if your problem is with `fn` or with `docker`.
+
+### Docker Container Troubleshooting
+
+Check to see if your docker container is running:
+
+```text copy
+docker ps
+```
+
+An example of findorad not running, continue to next step.
+
+![No container named findorad found](/no_findorad.png)
+
+An example of findorad running, congrats! If your container is online and curl still doesn't respond, check your [Firewall](/findora/new#firewall) instead.
+
+![The container named findorad running](/findora_running.png)
+
+#### Check Docker Logs
+
+Check your docker logs if the container is offline:
+
+```text copy
+docker logs findorad
+```
+
+#### Update/Restart Script
+
+Analyze the error - We suggest running the "update/restart" script from our repository first to try to fix the issue. Run the following code to run our update script (or use the option in the Validator Toolbox):
+
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+  <Tab>
+    ```text copy
+    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/update_mainnet.sh -O update_mainnet.sh && bash -x update_mainnet.sh
+    ```
+
+  </Tab>
+  <Tab>
+    ```text copy 
+    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/update_testnet.sh -O update_testnet.sh && bash -x update_testnet.sh
+    ```
+  </Tab>
+</Tabs>
+
+If everything goes well the container will restart, be back online and show stats at this point. If you still have an error, continue onto Safety Clean.  
+
+#### Safety Clean Script
+
+If it fails and you still have the following error in your findorad logs at this point, we suggeset a safety_clean to reset your data and attempt to fix the problem via that method:  
+
+![Thread Local Storage Error](/run_safety_clean.png)
+
+You can pull the latest copy and run it with the following code, this will wipe and reload the database:
+
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+  <Tab>
+    ```text copy
+    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/safety_clean_mainnet.sh -O safety_clean.sh && bash -x safety_clean.sh
+    ```
+
+  </Tab>
+  <Tab>
+    ```text copy 
+    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/safety_clean_testnet.sh -O safety_clean.sh && bash -x safety_clean.sh
+    ```
+  </Tab>
+</Tabs>
+
+At the end of our script, your stats will print out. You should be back online at this point and syncing should resume. 
+
+#### Check Stats
+
+Check your stats until `catching_up` is false with the following code:
+
+```text copy
+curl 'http://localhost:26657/status'
+```
+
+### `fn` Troubleshooting
+
+Run `fn` and make sure it's error free. If you have any errors there's 3 commands to setup/reset `fn`, run the following for mainnet (replace mainnet with testnet if testing):
+
+```text copy
+expor ROOT_DIR=/data/findora/mainnet && fn setup -S https://prod-mainnet.prod.findora.org && fn setup -O ${ROOT_DIR}/node.mnemonic && fn setup -K ${ROOT_DIR}/tendermint/config/priv_validator_key.json
+```
+
+Once you've reconnected the files with the above command `fn` show should now properly display your wallet (and if created on chain, validator) information.
+
+## Validator Software Version Updates
+
+Note: These are both included in the validator toolbox, but for those of you who would like to manually run scripts:
+
+### Update/Restart Validator Script
+
+The update_mainnet.sh script will stop your container, pull in any updates, and restart the container if your files are in the proper spot and your permissions are set properly. Operators also use this to restart their containers or start them up if they are down.
+
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+  <Tab>
+    ```text copy
+    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/update_mainnet.sh -O update_mainnet.sh && bash -x update_mainnet.sh
+    ```
+
+  </Tab>
+  <Tab>
+    ```text copy 
+    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/update_testnet.sh -O update_testnet.sh && bash -x update_testnet.sh
+    ```
+  </Tab>
+</Tabs>
+
+### Safety Clean Script
+
+This script will wipe your data and reload a fresh database. This can take some time so there will be missed blocks but it will just clean the database, reload the database and restart your validator without wiping other files.
+
+To stop and reload the database on your server run the following code, choose the code for your network below:
+
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+  <Tab>
+    ```text copy
+    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/safety_clean_mainnet.sh -O safety_clean.sh && bash -x safety_clean.sh
+    ```
+
+  </Tab>
+  <Tab>
+    ```text copy 
+    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/safety_clean_testnet.sh -O safety_clean.sh && bash -x safety_clean.sh
+    ```
+  </Tab>
+</Tabs>
+
+### `fn` Update
+
+Our fn_update script will pull down and setup your fn application with the latest version online. You can run the update with the following code:
+
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+  <Tab>
+    ```text copy
+    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/fn_update_mainnet.sh -O fn_update.sh && bash -x fn_update.sh
+    ```
+
+  </Tab>
+  <Tab>
+    ```text copy 
+    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/fn_update_testnet.sh -O fn_update.sh && bash -x fn_update.sh
+    ```
+  </Tab>
+</Tabs>
+
+## vStats Bot Findora
+
+Fortune Validator has created the telegram bot vStatsFindora to help you monitor your server. Sign up with the Telegram bot [right here](https://t.me/vStatsFindoraBot).
+
+
+
+## Resources
+
+- [Findora Main Dashboard](https://findorascan.io) - Findora's Official Dashboard & Explorer
+- [Findora SmartStake](https://findora.smartstake.io) - Stats
+- [Findora Telegram](https://t.me/findoraen) - A telegram chat full of Findora Validators to ask quesitons. Ask for an invite in the main.
+- [Findora's Official Discord Server](https://discord.gg/U7KvSuWNCj) - The central spot for all Findora news and updates.

@@ -1,0 +1,35 @@
+{
+  "name": "example-docs",
+  "private": true,
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "debug": "NODE_OPTIONS='--inspect' next dev",
+    "vercel-build": "yarn workspace nextra run build && yarn workspace nextra-theme-docs run build && yarn build",
+    "clean": "rimraf .next .turbo"
+  },
+  "dependencies": {
+    "next": ">=13",
+    "nextjs-google-analytics": "^2.3.0",
+    "nextra": "workspace:*",
+    "nextra-theme-docs": "workspace:*",
+    "react": "*",
+    "react-dom": "*",
+    "sharp": "^0.31.3"
+  },
+  "dependenciesMeta": {
+    "nextra": {
+      "injected": true
+    },
+    "nextra-theme-docs": {
+      "injected": true
+    }
+  },
+  "version": null,
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  }
+}

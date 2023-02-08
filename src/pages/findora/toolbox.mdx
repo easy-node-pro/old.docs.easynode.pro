@@ -1,0 +1,121 @@
+import { Callout } from "nextra-theme-docs";
+import { useSSG } from "nextra/ssg";
+import { Tab, Tabs } from "nextra-theme-docs";
+
+export const getStaticProps = ({ params }) => {
+  return fetch(`https://api.github.com/repos/FindoraNetwork/findora-toolbox`)
+    .then((res) => res.json())
+    .then((repo) => ({
+      props: {
+        // We add an `ssg` field to the page props,
+        // which will be provided to the Nextra `useSSG` hook.
+        ssg: {
+          stars: repo.stargazers_count,
+        },
+      },
+      // The page will be considered as stale and regenerated every 60 seconds.
+      revalidate: 60,
+    }));
+};
+
+export const Stars = () => {
+  // Get the data from SSG, and render it as a component.
+  const { stars } = useSSG();
+  return <strong>{stars}</strong>;
+};
+
+# Findora Toolbox Setup
+
+This guide is for installing the Validator Toolbox and then a Findora Validator Node onto a brand new validator server. After you finish this guide you'll use our [Post Install](/findora/post) section to stake FRA and create your validator.
+
+Here's a short video of us installing and using the toolbox!
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/AVGirvlA5ow"
+  title="YouTube video player"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
+
+## Existing Validators
+
+Toolbox will install on existing validators as well. Since you already have a user account and docker, you're good to skip ahead and run the [install string](/findora/toolbox#run-installer) to setup the management menu. After that use the normal [launch command](/findora/toolbox#relaunch-toolbox) to check for updates and run the menu each time.
+
+## Github Repository
+
+The Findora Validator Toolbox repository has <Stars /> 🌟 on [GitHub](https://github.com/FindoraNetwork/findora-toolbox). If you enjoy our Validator Toolbox software can you head to our page and give us a 🌟 today? Thank you!
+
+## Code Stats
+
+- [![Codacy Badge](https://app.codacy.com/project/badge/Grade/aa50cae790bd4319a9cca9c6500301f6)](https://www.codacy.com/gh/FindoraNetwork/findora-toolbox/dashboard?utm_source=github.com&utm_medium=referral&utm_content=FindoraNetwork/findora-toolbox&utm_campaign=Badge_Grade)
+- [![Codacy Security Scan](https://github.com/FindoraNetwork/findora-toolbox/actions/workflows/codacy.yml/badge.svg?branch=main)](https://github.com/FindoraNetwork/findora-toolbox/actions/workflows/codacy.yml)
+- [![Discord Badge](https://img.shields.io/badge/chat-discord-purple?logo=discord)](https://discord.gg/Rcz5T6D9CV)
+- [![Stake Now Badge](https://img.shields.io/badge/stake-findora-purple)](https://bit.ly/easynodefra)
+
+## Pre-Install Tasks
+
+### Server Selection
+
+Grab a server. We suggest using a budget host with enough storage. Currently used providers (depending on location) are ovh.com / ovh.us, server4u, contabo. [Hetzner](https://hetzner.cloud/?ref=uUlKM6mNXPli) is no longer recommended for a host as crypto is against their policy but does work great for learning and testing a Findora server.
+
+The Hardware Requirements:
+
+- Recommended: 16GB RAM, 4 Core CPU, 300GB NVMe Hard Disk
+
+## Server Prep
+
+### Setup A User Account
+
+See our admin tools page on setting up a [user account](/admin#user-account) & using [ssh keys](/admin#ssh-keys) for passwordless secure login.
+
+Once you're logged into your user account, you're ready to move on.
+
+### Firewall Ports
+
+We covered setting up your firewall for [Findora right here](/findora/new#firewall). If you don't have a web firewall now is the time to configure UFW.
+
+### Docker Installation
+
+At this point you need to [install docker using these instructions](/admin#docker-installation) if you didn't already do so.
+
+## Run Installer
+
+Once you've logged back in and your user is in the docker group, run the folloing code to install the toolbox and begin installation on either `mainnet` or `testnet`. Our menu will launch and ask you a few simple questions to get you fully loaded and online:
+
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+  <Tab>
+  ```text copy
+  cd ~/ && sudo apt install python3-pip -y && git clone https://github.com/FindoraNetwork/findora-toolbox.git && cd findora-toolbox && pip3 install -r requirements.txt --quiet && cd ~/ && python3 ~/findora-toolbox/src/app.py --mainnet
+  ```
+  </Tab>
+  <Tab>
+  ```text copy
+  cd ~/ && sudo apt install python3-pip -y && git clone https://github.com/FindoraNetwork/findora-toolbox.git && cd findora-toolbox && pip3 install -r requirements.txt --quiet && cd ~/ && python3 ~/findora-toolbox/src/app.py --testnet
+  ```
+  </Tab>
+</Tabs>
+
+The installer will pull the installation script and get everything setup. At the end of the installer you'll have a fully working validator syncing up to the blockchain on a brand new tmp.gen.keypair and priv_validator_key.json file. These are usable as wallets but are also disposable still at this point. You can test out all the functions of a Findora server now as long as you don't run the staking and creation commands.
+
+## After Installation
+
+> At this point you'll have a system that begins syncing automatically on the blockchain after the database download and unpacking completes. Wait for your `sync_status` to equal false before creating your validator or migrating to a new system.
+
+## Relaunch Toolbox
+
+To re-start the toolbox with updates, run the following code:
+
+```text copy
+cd ~/findora-toolbox/ && git pull && pip3 install -r requirements.txt --quiet && cd ~/ && python3 ~/findora-toolbox/src/app.py
+```
+
+## Post Installation
+
+If you're just installing your validator for the first time you still need to fund your wallet, stake your FRA, start your validator and backup your private key files. Head over to our [post install section](/findora/post) for those commands!
+
+## Toolbox Pro Tips
+
+If you're an experienced Validator you can find more info on what the toolbox is doing for you [right here](/findora/docs).

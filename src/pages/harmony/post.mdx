@@ -1,0 +1,251 @@
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# Post Installation Tips
+Here's a lot of handy info post installation to help you manage your node better.
+
+### Update Validator information
+We've already sent our create-validator command, now you can use the same command to send only the fields you would like to update.
+
+#### edit-validator
+If you recall, earlier you sent a command simiar to these examples only I've updated them to be `edit-validator` instead of create validator:
+
+<Tabs
+  items={["Edit Mainnet", "Edit Testnet"]}
+  defaultIndex="0"
+>
+  <Tab>
+    ```text copy
+    ./hmy --node="https://api.s0.t.hmny.io" staking edit-validator \
+        --validator-addr one1rka0v5rct0857f2f*6ahn0cyd89uvravr3yjw \
+        --bls-pubkeys a243b3a090063bae6aeca9215*05de1a94a033c50ab98ed98c50ab98ed984c9cf23513585e1af0cc4c9cf23513585e1af0cc \
+        --name "My Awesome Validator" --identity 05de1a94a0*33c50ab98ed98 --details "All your validator notes that show up on the staking.harmony.one site" \
+        --security-contact "myemail@address.com" --website "your-website.com" \
+        --passphrase --gas-price 100
+    ```
+  </Tab>
+  <Tab>
+    ```text copy
+    ./hmy --node="https://api.s0.b.hmny.io" staking edit-validator \
+        --validator-addr one1rka0v5rct0857f2f*6ahn0cyd89uvravr3yjw \
+        --bls-pubkeys a243b3a090063bae6aeca9215*05de1a94a033c50ab98ed98c50ab98ed984c9cf23513585e1af0cc4c9cf23513585e1af0cc \
+        --name "My Awesome Validator" --identity 05de1a94a0*33c50ab98ed98 --details "All your validator notes that show up on the staking.harmony.one site" \
+        --security-contact "myemail@address.com" --website "your-website.com" \
+        --passphrase --gas-price 100
+    ```
+  </Tab>
+</Tabs>
+
+If you'd like to update your info, send an `edit-validator` command with only the fields you would like to update. 
+
+#### Required Flags
+Remember at a minimum you'll always have to include the following, along with the options you'd like to change:
+- --node - Every shard uses the same node endpoint on shard 0 for updates, include it as is
+- staking edit-validator - This tells the chain we want to edit our validator
+- --validator-addr - Always send your validator address here
+- --passphrase - Need this to auth, enter the wallet password you setup on your validator. If you have a passphrase.txt file you can send `--passphrase-file passphrase.txt` instead.
+- --gas-price 100 - Minimum gas needed to send the transaction
+
+##### edit-validator options
+Here's all of the options you can add and customize before sending your create command.  
+
+- bls-pubkeys - Your BLS public key - Use when adding or removing (You can't go to 0 keys on your validator you must always have 1 minimum)
+- name - The validator name you want listed on the validator staking page
+- identity - Your validator logo string you made earlier on [keybase.io](https://keybase.io) using the [harmony guide](https://docs.harmony.one/home/network/validators/managing-a-validator/adding-a-validator-logo).
+- details - The details you want on the validator staking page
+- security-contact - Your email address for contact when validators need to make an update or change
+- website - Your website or social media account, use your staking page if you don't have one
+- rate - Your new fee rate
+- max-total-delegation - The max $ONE that can be delegated by one single wallet
+- min-self-delegation - Must be at least 10k, you can leave this at 10k.
+
+Please note that you are not allowed to change `max-change-rate` or `max-rate` after creation.
+
+#### Harmony Application Troubleshooting
+Harmony troubleshooting is actually quite simple. Here's how we suggest getting better messages to determine your issue:
+ 
+1. Stop your harmony service:
+
+```text copy
+sudo service harmony stop
+```
+
+2. Navigate to your ~/harmony folder ( `cd ~/harmony` ) and run Harmony manually. This bypasses the service and allows for better error messages.
+
+```text copy
+cd ~/harmony
+./harmony -c harmony.conf
+```
+
+3. Analyze your error message and resolve or ask in [Discord Chat](https://discord.gg/Rcz5T6D9CV) about the solutions!
+
+#### Validator Toolbox Troubleshooting
+For any issues with the toolbox, or if you'd like to re-run it after launch it the first time simply remove ~/.easynode.env from your server and rerun our script. That will trigger setup once again.
+
+You can log an issues or bugs on our github page as well.
+
+- [Our repository](https://github.com/easy-node-pro/harmony-toolbox)
+
+#### Common Issues During Install
+If you're too good, you may try to run the installer before the user data setup completes. Just give it a moment and re-run the pip3 command.
+
+![](/install_error_00.png)
+
+#### Requirements missing
+If you get this error, you didn't run the pip3 command or it failed, try it again.
+
+![](/install_error_01.png)
+
+####  Sudoless Root Skipped - Application install starts and freezes up.
+If your download freezes on this screen you didn't setup sudoless root properly. You can enter your user password to get it to continue or re-read the [Server Prep](../harmony/toolbox/before/index.mdx) section.
+
+![](/install_error_02.png)
+
+##### No Module Found Error
+This error happens if you run too quickly on digital ocean or forget to install the validator toolbox requirements first.
+
+Error:
+```text copy
+ModuleNotFoundError: No module named 'xxxxxxxxxx'
+```
+
+This error is easy, perform the following and then re-run start.py
+```text copy
+cd ~/harmony-toolbox
+pip3 install -r requirements.txt
+```
+
+## Rewards!
+Our tips on rewards for stakers and validators
+
+#### Rewards as a Delegator
+Usually one of the first things to come up in chat is "When will I get rewarded?" and we can cover that here as well. You've hit Delegate and signed over $ONE to be used on a validator, great! Now you want to know when you'll get paid.
+
+* You will get rewards in real time when the next epoch starts
+* You can claim your rewards at anytime
+* You can compound your rewards once you have 1000 $ONE, the minimum to delegate
+
+#### Rewards as a Validator
+
+Validator rewards are earned along side the delegator rewards. The fee is deducted at the same time \(if there is a fee on your validator\) and has already been removed from your coins available to claim.
+
+- How much you earn depends on a lot of factors. The more ONE staked, the more one you make.
+- An entry validator with 1 key should make enough to cover their monthly server fees.
+
+## Monitoring Nodes
+How we suggest doing basic monitoring when you first get started. Really there's not much monitor on your nodes if everything is up and working.
+
+#### Validator Toolbox Users
+The top option is #1 in your menu to show your current server stats. If you don't use the toolbox, you can manually setup a [python stats script](/harmony/post/scripts/stats) to run by hand to see your sync status.
+
+#### Tools
+As we suggested earlier, see our [Admin Tools](/admin) section. 
+
+##### Checking for BINGOs
+One command you'll want to run from time to time on both nodes to verify they are in sync is known as the "BINGO" command around the Harmony community. This command shows you a live view of the end of your log and prints every time it finds a block signature. You won't see this if you are not elected! To check for BINGO run the following command:
+
+```text copy
+tail -f latest/zerolog-harmony.log | grep BINGO
+```
+
+##### SSH Application - Multiple Connections
+We open 2 connections to each node in Mobaxterm and split the screen 4 ways, here you'll see vwest & vnorth our 2 nodes.
+
+We run htop in the top window to monitor resources. We've noticed after a few days the harmony service starts consuming more CPU usage so we find it helpful to restart it from time to time. This time period varies but once we see the load average stay above 1.0 for awhile we restart the service and on the AMD systems it normally rests between 0.30 ~ 0.50.
+
+In the bottom we can use the terminal for running the [Easy Node stats script](/harmony/post/scripts/stats), checking for BINGOs in your logs, sending [edit-validator commands](https://docs.harmony.one/home/network/validators/managing-a-validator/checking-validator-information) to add/remove keys or update information and much more. You can also vote, stake and claim rewards but I won't be covering that here as [it's in the official guide](https://docs.harmony.one/home/network/validators/managing-a-validator/checking-validator-information).
+
+![Example setup of MobaXterm](/cimage_4.png)
+
+##### Prometheus, Grafina and more monitoring software!
+I'm not onto the advanced monitoring software at this point with only 2 nodes. We may add this information later. It's out there if you crave deep statistics for your node.
+
+##### Linux Operating System Updates
+You can run Linux OS upgrades from time to time when restarting your node. If you'd like you can also reboot at that point and wait for syncing to come back online before doing the same on your 2nd node.
+
+To run linux updates without rebooting on Ubuntu 20.04 LTS run the following:
+
+```text copy
+sudo apt-get update && sudo apt-get upgrade -y
+```
+##### I use a Mac to connect!
+
+You can do this with 4 terminal windows. I'm sure there's applications out there for Mac that do the same but I would just use the terminal myself.
+
+### "Backup" Node
+
+Our notes on running a 2nd server for redundancy
+
+#### Backup Server
+
+A backup node is no longer recommended by Harmony. Please discontinue having duplicate nodes when possible. You can still have a 2nd server ready to take over but running dual nodes will be disallowed soon.
+
+##### So you're going to do it anyways
+
+##### Backup Server Setup
+
+Run another server using the same .key & .pass files as the first
+To run a backup node complete the same setup with the following changes:
+
+- Import your wallet instead of creating one.
+- Copy your key and pass files over from your other server into your `~/harmony/.hmy/blskeys` folder.
+
+### Changing Shards
+Some quick notes on swapping shards. This is an advanced tactic which requires some previous knowledge to pull off.
+
+#### Moving Shards
+Here's how to move shards at an epoch change. There's some things you'll need to get ready on the front end to swap shards:
+- Spin up a server on your new shard, creating new .key/.pass files (or loading ones you previously had for the target shard), and get the database in sync
+- Once synced up you are ready to add the new key from the new shard onto the blockchain via `edit-validator` commands
+- Once new keys are added, remove the old keys from the old shard
+- Leave both servers online until the epoch election happens
+- After the election, when the old server is done signing for the previous epoch you can shut down/retire/archive the server as per usual
+- New server will sign after the election using your newly added keys
+
+## Bots
+Our notes on the telegram notification bot
+
+### Telegram vStats Bot
+Made by [Fortune.ONE Validator](https://twitter.com/Fortune__ONE), you will want to [setup this bot](https://t.me/vstatsbot) on telegram to notify you about issues. It's the best way to get notified of any problems.
+
+This can also give you a summary of delegations (including delegations via metamask) and your wallet balances. You can watch multiple wallets and validators with this tool.
+
+Message the bot and type `/start` to get started.
+
+![vStatsBot Options](/vstats_bot.png)
+
+### Telegram Notification Bot
+You can use the [Harmony Analytics Bot](https://t.me/HarmonyAnalyticsBot) to get notification on changes to wallets or to validators. Hit up the telegram bot to get started. This one is great for knowing when the next epoch is about to start.
+
+To pull up the menu send
+
+`/menu`
+
+To set your favorite wallets add, mutliples separate with a comma no spaces
+
+`/setaddress <one wallet address>`
+
+To set your validator address
+`/setfav <one validator wallet address>`
+
+## Robovalidator Autobidder
+Automatically bid for slots
+
+[Robovalidator](https://www.robovalidator.com/) has an autobidder application. You'll find the github on [this page](https://www.robovalidator.com/). The setup instructions are included in the readme.md file in the repository.
+
+### Installation
+
+The autobidder can be run with the configuration as is on any Shard 0 node along side your ~/harmony folder. You will always get the best response running autobidder on a Shard 0 node.
+
+If you're not running it on a Shard 0 node \(it can be run anywhere hmy is installed in ~/harmony/\) you just need to set the following to True so your node will send requests to the blockchain and depending on traffic may need to increase your gas.
+
+USE\_REMOTE\_NODE = True
+
+### Control and operation
+If you're having troubles launching autobidder and it's failing for the password, try using an empty ~/harmony/passphrase.txt file and see if you get a different result.
+
+We use [VS Code](/admin#vs-code) with Remote SSH to manage the files, see our [Admin Tools](/admin) post from earlier on that application.
+
+### Autobidder Support
+
+I don't provide support for this application, join the [harmony staking telegram chat](https://t.me/PangaeaVolunteers) if you have questions.
+

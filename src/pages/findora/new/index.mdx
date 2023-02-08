@@ -1,0 +1,135 @@
+import { Callout } from 'nextra-theme-docs'
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# New Findora Validators
+Welcome to Easy Node Validator's Companion guide. Here we cover what it takes to become a Validator on Findora FRA and what you can expect along the journey.  
+
+[![Findora Logo](/findora_logo_white.png)](/findora)
+
+## General Overview
+### How much time does it take to manage a validator?
+Being a Findora validator doesn't have a lot of time commitment to it. The systems run a Docker container and for the most part run smoothly. Setup monitoring with [vStatsFindoraBot](https://t.me/vStatsFindoraBot) and you'll know if you run into issues.
+
+Here's some helpful tips to keep in mind along the way!  
+
+<Tabs
+  items={["Installation  Methods", "Setting up a Server Node", "After Setup Steps", "Required Skills"]}
+  defaultIndex="0"
+>
+  <Tab>
+    There's a few different ways to learn the software or to just simply get it installed. Here's the 3 current methods that work best. All of these methods assume you already setup a server with Docker and you're ready to get to installing:  
+
+    - [Manual Method](https://docs.findora.org/validator-materials/node-setup-guides/manual-setup) - Use the Findora docs site to install. This is recommended for first time installers and people not familliar with Linux.
+    - [Script Method](/findora/new/script) - Our take on the "Automated Install" on the page above. We've made it smoother and added a lot of bells and whistles.
+    - [Validator Toolbox Method](/findora/toolbox) - Our new python app that installs & helps you manage your server. Makes everything super EASY!!! Recommended for those familiar with Linux.
+  </Tab>
+  <Tab>
+    Configuring a Findora node can be straight forward with either method we cover here & a cloud host provider. If you manually install Findora from their docs site or use home hardware here's some extra things to know:
+
+    - Pick a server host or have hardware at home and know how to forward ports
+    - Create cloud server VPS or load home system with Linux
+    - Create a [non-root user account](/admin#user-account)
+    - Setup passwordless login, change ssh port, disable password & root login for more security
+    - Setup Firewall or port forwarding
+    - Pull scripts & run scripts or toolbox to help with installation from github
+    - Know how to migrate to a new server for disaster recovery/Migrations
+  </Tab>
+  <Tab>
+    After you're elected and you've worked hard enough to secure enough delegates to become stable here's what the validator life is like daily.  
+
+    - Create a brand and market it, a lot
+    - Find a way to add to the community, make people know you're helping
+    - Answer questions in the official Findora support channels
+    - Work on getting more delegations, you'll need it
+    - Monitor stats non stop on [Smart Stake's Next Election site](https://findora.smartstake.io/)
+    - Monitor stats on your nodes
+    - Monitor uptime (aka missed signings)
+    - Investigate missed signings
+    - Take crap for making any decision
+    - Market your brand some more to get more delegations
+    - Repeat
+  </Tab>
+  <Tab>
+    You'll have to commit to learning how to become a Linux Administrator, keep up with the server admin changes for Findora and have time to assist your delegators if issues arise. Make sure you understand every command you run in this guide before you execute it and why you are performing it! A lot of steps may need customization and you'll want to save them for re-use later.  
+
+    Some other things that may add to your skill level:  
+    
+    - Be familiar with virtual machines and Ubuntu Server
+    - Know how to create, manipulate and update files and directories
+    - Know how to manage file permissions
+    - Know how to create users and manage permissions
+    - Know how to manage and modify bash scripts
+    - Know how to manage services
+    - Know how to read logs and troubleshoot issues that may arise.
+    - Learn [Docker](https://docker.com)
+  </Tab>
+</Tabs>
+
+## Admin tools
+See our [Admin Tools guide](/admin) for Findora here. Same tools work well for Findora operators.
+
+## Server Selection
+Grab a server. We suggest using a budget host with enough storage. Currently used providers (depending on location) are ovh.com / ovh.us, server4u, contabo. [Hetzner](https://hetzner.cloud/?ref=uUlKM6mNXPli) is no longer recommended for a host as crypto is against their policy but does work great for learning and testing a Findora server.
+
+<Tabs
+  items={["Mainnet Requirements", "Testnet Requirements"]}
+  defaultIndex="0"
+>
+  <Tab>
+    - Minimum: 8GB RAM, 2 Core CPU (2.90GHz per core), 100GB Hard Disk
+    - Recommended: 16GB RAM, 4 Core CPU (2.90Ghz per core), 300GB Hard Disk
+  </Tab>
+  <Tab>
+    Testnet database is much smaller than Mainnet, you can use a 40GB disk currently:
+    - Minimum: 8GB RAM, 2 Core CPU (2.90GHz per core), 40GB Hard Drive
+    - Recommended: 16GB RAM, 4 Core CPU (2.90Ghz per core), 40GB Hard Drive
+  </Tab>
+</Tabs>
+
+## FRA Wallet
+Both of our installation methos will make a brand new wallet file (tmp.gen.keypair) and a new validator private key (priv_validator_key.json). Consider these temporary until the point you stake into the wallet address and activate the validator key. Then you'll want to keep those files forever. Both of our installation methods make a folder named ~/findora_backup with all of your files to easily transfer off of your server for storage.
+
+## Firewall
+Almost all cloud providers have a web firewall built into their hosting website. It's much easier to use than software firewalls on your server.
+
+### Web Firewall Config
+You'll need port 22 for SSH connections, and the following ports should be open for Findora.
+```text copy
+22
+8545
+8667-8669
+26657
+```
+
+### UFW Software Firewall Config
+You only need this setup if your hosting company doesn't offer a web firewall or you are installing at home.  
+
+If you customized your SSH port for security, modify the line with port 22 to be your new SSH port.  
+
+These commands configure `ufw` firewall on Ubuntu 20.04/22.04LTS, use at your own risk:  
+
+Configure the needed ports:
+```text copy
+sudo ufw allow 22
+sudo ufw allow 8545/tcp
+sudo ufw allow 8667/tcp
+sudo ufw allow 8668/tcp
+sudo ufw allow 8669/tcp
+sudo ufw allow 26657/tcp
+```
+
+Enable `ufw`:
+```text copy
+sudo ufw enable
+```
+
+`ufw` Status:
+```text copy
+sudo ufw status
+```
+
+## Findora Components
+Findora has two components: A docker container that runs the validator software and has your private validator info & `fn` an application that contains your staking wallet and performs blockchain commands.
+
+## Installation Type
+Which ever setup type you decide to try (Manual, Script or Toolbox) we recommend you practice on testnet first. It only takes moments to isntall and you can test out every function you'd like even before "officially staking and starting" your validator. It's all practice up until the moment you send FRA to the wallet you will use for your validator and stake them on chain.

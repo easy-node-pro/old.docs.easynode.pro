@@ -1,0 +1,67 @@
+import { Callout } from 'nextra-theme-docs'
+import Image from 'next/image'
+import { useSSG } from 'nextra/ssg'
+
+export const getStaticProps = ({ params }) => {
+  return fetch(`https://api.github.com/repos/easy-node-pro/guides`)
+    .then((res) => res.json())
+    .then((repo) => ({
+      props: {
+        // We add an `ssg` field to the page props,
+        // which will be provided to the Nextra `useSSG` hook.
+        ssg: {
+          stars: repo.stargazers_count,
+        },
+      },
+      // The page will be considered as stale and regenerated every 60 seconds.
+      revalidate: 60,
+    }))
+}
+
+export const Stars = () => {
+  // Get the data from SSG, and render it as a component.
+  const { stars } = useSSG()
+  return <strong>{stars}</strong>
+}
+
+# Guides
+![Easy Node Logo](/twitter_card_800x418.jpg)
+
+## Blockchain Guides
+### Harmony ONE
+[![Harmony Logo](/harmony_logo_white.png)](/harmony)
+- [New Validators](/harmony) - Installation by hand to learn all the components of a Harmony $ONE Validator node.
+- [Experienced Validators](/harmony/toolbox) - Installation by Easy Node's [Harmony Validator Toolbox](https://github.com/easy-node-pro/harmony-toolbox) - Our installer & management menu for Harmony ONE Validators!
+- [Harmony ONE Staking Guide](https://easynode.pro/harmony)
+
+### Findora FRA
+[![Findora Logo](/findora_logo_white.png)](/findora)
+- [New Validators](/findora) - Start Here to learn about being a Findora Validator.
+- [Experienced Validators](/findora/toolbox) - Installation by Easy Node's [Findora Validator Toolbox](https://github.com/FindoraNetwork/findora-toolbox) - Our installer & management menu for Findora FRA Validators!
+
+#### Findora Staking Guide
+Currently the easiest way to obtain Findora is via [KuCoin](https://www.kucoin.com/ucenter/signup?rcode=rJSJQQV). Here's the steps you'll need to complete to get Findora staked:
+- Buy on [KuCoin](https://www.kucoin.com/ucenter/signup?rcode=rJSJQQV) or [BitMart](https://www.bitmart.com/trade/en?symbol=FRA_USDT&layout=basic)
+- Send to your EVM MetaMask 0x address
+- Setup Findora EVM Network in MetaMask
+- Install Findora native wallet on same PC
+- Bridge from MM to Findora 
+- Stake via the Findora native wallet
+
+## Github Repository
+This guides repository has <Stars /> 🌟 on [GitHub](https://github.com/easy-node-pro/guides). If you enjoy our guides would you head to our page and give us a 🌟 today? Thank you!  
+
+## Validator Support Communities
+There is no setup help or support officially provided to validators by the blockchains you are your own help desk. It's always best to fully learn your system before going live on a blockchain. If you do get stuck you can always ask for help in:
+- [Harmony's Official Discord Server](https://harmony.one/discord) is the best spot for all things Harmony first for fastest response.
+- [Harmony Official Mainnet Staking Telegram Channel](https://t.me/PangaeaVolunteers) is another great spot for Harmony questions.
+- [Findora Main Telegram Chat](https://t.me/findoraen) - Findora Validator Support Telegram Channel is the best spot for incoming Findora Validators to as questions. Ask for an invite in the main.
+- [EasyNode.PRO Discord](https://discord.gg/Rcz5T6D9CV) - We do field questions in our Discord server but we may take our sweet time to respond. Other users may provide assistance if they're available so post in the proper channels!
+
+## Subscribe to Easy Node
+Want to help us out for helping you out? Our subscriptons start as low as $3.75 a month!  
+
+Have a lot of questions? Become an 'Easy Technical Supporter' and unlock a subscribers only priority support chat!  
+
+Get more info here:  
+[Easy Node Discord Subscriptions](https://mee6.gg/m/easynode)

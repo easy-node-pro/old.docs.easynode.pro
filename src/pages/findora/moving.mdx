@@ -1,0 +1,219 @@
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# Notes on Moving Servers
+For people looking to move providers or re-create a validator, you'll need to import a few files onto the new server and then **be sure to shut off the old server** before starting the new server with your old keys to avoid **double signing slashing (5% from your pool)**. The slashing fee for Missing Blocks is far less and easier to explain than getting slashed for 5%.
+
+## Backup Recovery Data Files
+The Validator Toolbox copies all files you need to backup into the folder `~/findora_backup` every time you launch it.
+
+To backup your server, save this folder somewhere safe and always keep it private. You will need it for recovery or migrating servers.
+
+If you're not using the validator toolbox here's a list of files you'll need to migrate to a new server:
+
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+    <Tab>
+        ```text copy
+        ~/tmp.gen.keypair
+        ~/staker_memo
+        /data/findora/mainnet/node.mnemonic
+        /data/findora/mainnet/mainnet_node.key
+        /data/findora/mainnet/tendermint/config/
+        ```
+    </Tab>
+    <Tab>
+        ```text copy
+        ~/tmp.gen.keypair
+        ~/staker_memo
+        /data/findora/testnet/node.mnemonic
+        /data/findora/testnet/testnet_node.key
+        /data/findora/testnet/tendermint/config/
+        ```
+    </Tab>
+</Tabs>
+
+## Migrate your server via Validator Toolbox
+To migrate via validator toolbox, use the toolbox to install a brand new node on your new server. Let it fully sync up with the blockchain and now you're ready to use the toolbox to convert this new server over to using your old validator keys and files.
+
+We've built a migration tool into the validator toolbox. To activate this feature create a folder named ~/migrate and using your **old server files** place the **tmp.gen.keypair** file inside along with a copy of your **tendermint/config** folder. Your ~/migrate folder should look like this:
+```text
+~/migrate/tmp.gen.keypair
+~/migrate/config
+```
+
+Once those files are in place you can shut down your old server to **avoid double signing** as you're ready to flip the new server to your old file and start signing instantly.
+
+After shutting down your old server, restart the validator toolbox and you will see option 888 available to migrate your server files to the new validator node.
+
+After running it you'll be up and online almost instantly as you let it sync up and keep running without stopping it except for a moment when we change your keys over.
+
+
+## Manual Migration Method
+Note: This is the old method, the toolbox works best to migrate efficiently. This guide will assume you have a new server online and synced up to the blockchain on a temporary brand new wallet. You can use the [validator toolbox](/findora/toolbox) install to get to this point and then take over manually.  
+
+### On your new server
+Assuming you did the standard installation and have findora synced up with the blockchain on a temporary wallet you may proceed.
+
+Log into your new server and create the folders we will use for migration in your home directory. Create a folder named `migrate` with a `config` folder inside by running the following commands:
+```text copy
+cd ~/
+mkdir -p ~/migrate/config
+```
+
+Use a transfer app to add your old tmp.gen.keypair, node.mnemonic files into the `~/migrate` folder. Add your old config folder into the `~/migrate/config` folder.
+
+At this point you can shut down your old server and **take it offline to avoid double signing**.
+
+**Once your old server is offline** - On the new server, download and run our migration script to convert your server over to your old keys and to start syncing again run our new script by running the following code:
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+    <Tab>
+        ```text copy
+        cd ~/ && wget -O migrate_mainnet.sh https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/migrate_mainnet.sh && bash -x migrate_mainnet.sh
+        ```
+    </Tab>
+    <Tab>
+        ```text copy
+        cd ~/ && wget -O migrate_testnet.sh https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/migrate_testnet.sh && bash -x migrate_testnet.sh
+        ```
+    </Tab>
+</Tabs>
+
+We will stop the running server and swap over to the old server files using the files uploaded into `~/migrate & ~/migrate/config` now. This should not take very long and you will see the statistics run when ready.
+
+You are all migrated and online at this point with your new server with old info!
+
+## Manual Migration
+Here's our steps to migrating to a new server running a temporary wallet/key to start running as your old validator information.
+
+### On your new server
+Once you are fully syncronized on the new server you can now stop your new server's container and then begin replacing your key files. You will need to remove your current docker container with the temporary keys to build a container using the key you are migrating.
+
+To stop and remove the current temporary validator container run the following code:
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+    <Tab>
+        ```text copy
+        docker stop findorad && docker rm findorad && rm -rf /data/findora/mainnet/tendermint/config/addrbook.json
+        ```
+    </Tab>
+    <Tab>
+        ```text copy
+        docker stop findorad && docker rm findorad && rm -rf /data/findora/testnet/tendermint/config/addrbook.json
+        ```
+    </Tab>
+</Tabs>
+
+Verify your container is shut off by running `docker ps` and making sure that it no longer shows your findorad container as online.  
+
+Once you verify the container has stopped, Update all of the following files with the same files on your old system using a transfer app:
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+    <Tab>
+        - /data/findora/mainnet/node.mnemonic
+        - /data/findora/mainnet/mainnet_node.key
+    </Tab>
+    <Tab>
+        - /data/findora/testnet/node.mnemonic
+        - /data/findora/testnet/testnet_node.key
+    </Tab>
+</Tabs>
+
+Update all the files in the following folder with the contents of the same folder on your old system:
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+    <Tab>
+        - /data/findora/mainnet/tendermint/config
+    </Tab>
+    <Tab>
+        - /data/findora/testnet/tendermint/config
+    </Tab>
+</Tabs>
+
+Reconnect `fn` to the new files by running the following commands:
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+    <Tab>
+        ```text copy
+        fn setup -S https://prod-mainnet.prod.findora.org
+        fn setup -O /data/findora/mainnet/node.mnemonic
+        fn setup -K /data/findora/mainnet/tendermint/config/priv_validator_key.json
+        ```
+    </Tab>
+    <Tab>
+        ```text copy
+        fn setup -S https://prod-testnet.prod.findora.org
+        fn setup -O /data/findora/testnet/node.mnemonic
+        fn setup -K /data/findora/testnet/tendermint/config/priv_validator_key.json
+        ```
+    </Tab>
+</Tabs>
+
+Re-run tendermint to reconnect to the updated files by running the following command:
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+    <Tab>
+        ```text copy
+        export ENV=prod
+        export NAMESPACE=mainnet
+        export LIVE_VERSION=$(curl -s https://${ENV}-${NAMESPACE}.${ENV}.findora.org:8668/version | awk -F\  '{print $2}')
+        export FINDORAD_IMG=findoranetwork/findorad:${LIVE_VERSION}
+        docker run --rm -v ${ROOT_DIR}/tendermint:/root/.tendermint ${FINDORAD_IMG} init --${NAMESPACE} || exit 1
+        ```
+    </Tab>
+    <Tab>
+        ```text copy
+        export ENV=prod
+        export NAMESPACE=testnet
+        export LIVE_VERSION=$(curl -s https://${ENV}-${NAMESPACE}.${ENV}.findora.org:8668/version | awk -F\  '{print $2}')
+        export FINDORAD_IMG=findoranetwork/findorad:${LIVE_VERSION}
+        docker run --rm -v ${ROOT_DIR}/tendermint:/root/.tendermint ${FINDORAD_IMG} init --${NAMESPACE} || exit 1
+        ```
+    </Tab>
+</Tabs>
+
+Reset Permissions by running the following command (update `servicefindora` to your username if it's different):
+```text copy
+sudo chown -R servicefindora:servicefindora /data/findora
+```
+
+Verify wallet information is shown in `fn show` with your proper wallet address showing. Verify it matches key on your old validator!  
+
+**DO NOT ATTEMPT TO START THE NEW SERVER YET OR YOU MAY DOUBLE SIGN**  
+
+### On your old server
+Now is the time to stop your old server to avoid having double singing.
+
+Stop Docker To Stop Signing on your old server by running the following code:
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+    <Tab>
+        ```text copy
+        docker stop findorad && docker rm findorad && rm -rf /data/findora/mainnet/tendermint/config/addrbook.json
+        ```
+    </Tab>
+    <Tab>
+        ```text copy
+        docker stop findorad && docker rm findorad && rm -rf /data/findora/testnet/tendermint/config/addrbook.json
+        ```
+    </Tab>
+</Tabs>
+
+I also shutdown the old server at this point to make sure there's 0 chance of double signing. You should be ok without shutting down but if you'd like to be safe run:
+```text copy
+sudo init 0
+```
+
+**AT THIS POINT THERE IS NO FURTHER RISK OF DOUBLE SINGING BUT YOU ARE MISSING BLOCKS NOW**  
+
+From here on down the guide the following tasks are time dependent as you'll begin to miss signatures at this point.  
+
+### Back on your new server
+
+- Restart your Findorad Docker Container using the update_image_version script:
+<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
+    <Tab>
+        ```text copy
+        wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/update_mainnet.sh -O update_mainnet.sh && bash -x update_mainnet.sh
+        ```  
+    </Tab>
+    <Tab>
+        ```text copy
+        wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/update_testnet.sh -O update_testnet.sh && bash -x update_testnet.sh
+        ```  
+    </Tab>
+</Tabs>
+
+Verify your server catches up and is now signing blocks.

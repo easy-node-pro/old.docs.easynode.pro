@@ -1,0 +1,68 @@
+# Toolbox Documents
+
+Here's a deep dive into how the toolbox works currently. If you're looking for the installation instrctuions, those are [here](/findora/toolbox).
+
+![Findora Loading](/findora_loader.png)
+
+## Intro
+
+The [Findora Validator Toolbox](https://github.com/FindoraNetwork/findora-toolbox) is designed to help Findora validators from start to finish - Installation to daily management operations. It has an Installer and Management Menu.
+
+## Deep Dive video
+We put together a video taking a deeper look into the validator toolbox.  
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jo7obDqHAg8" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
+## Installer
+
+On first run, you will be asked if you'd like to install (fresh server) and then if you want a `mainnet` or `testnet` setup. On an existing server it will ask if this server runs `mainnet` or `testnet` (will work on auto detect soon!).
+
+The installer will pull the installation script and get everything setup. At the end of the installer you'll have a fully working validator syncing up to the blockchain on a brand new tmp.gen.keypair and priv_validator_key.json file. These are usable as wallets but are also disposable still at this point. You can test out all the functions of a Findora server now as long as you don't run the staking and creation commands.
+
+The Toolbox will also create the folder ~/findora_backup - Each time you launch it will recheck the files and notify you if it detects any issues.
+
+You can do all the testing you'd like at this point and wipe the server with no harm. If you'd like to go live with these keys [here's the remaining things](/findora/post#create-staker_memo-file) that need to be performed after installation:
+
+## Menu Options
+
+We're still filling out the menu options, here's a current shot of the options as of 12/15/2022:
+
+![Findora Toolbox Menu Options](/findora_menu_121522.png)
+| Option | Function | Notes |
+| :---- | :---: | :---- |
+| 1 | Show 'curl' stats info | Shows output of `curl 'http://localhost:26657/status'`, most info will be moved to front page
+| 2 | Show 'fn' stats info | Shows output of `fn show`, most info will be moved to front page
+| 3 | Show Balance | Coming soon, will be moved to front page
+| 8 | Update Findora Container | Pull latest version, re-create and restart local server container, you may miss blocks
+| 9 | Run Safety Clean | Runs the safety_clean script, wipes database, preserves wallet info, full reset of system
+| 10 | Update Operating System | Safely stops your container before running updates, you may miss blocks
+| 13 | Show system disk info | Info about hard drive space!
+| 14 | TMI about your Validator | A validator info dump, coming soon?
+| 15 | TMI about your Server | All of the hardware information on your VPS
+| 888 | Migrate to this Server | A hidden option, only enabled if you follow the [Moving Servers](/findora/moving) guide.
+| 999 | Reboot Server | Safely stop your container & reboot your server. You will miss blocks with this option!
+
+Please note, if you launch the toolbox after a reboot we will tell you if your container is down and help you get it back online with the update version script.
+
+## Backup Key Files
+
+Using the toolbox will copy all the files you need to backup into the folder `~/findora_backup` for safe keeping. Transfer this folder home using an sFTP program or command line utility.
+
+Here's the list of files in `~/findora_backup` and where they reside while being used by the application:
+
+```text copy
+- tmp.gen.keypair - This file is the same as your network_node.key file (network being mainnet or testnet)
+- config folder - This is a copy of your tendermint/config folder which contains priv_validator_key.json
+```
+
+## Future Updates
+
+### Better stats
+
+We will be pulling all stats to the front page. Unlike our other toolbox option 1 and 2 are still useful as we'll only be pulling the juicy bits to the front page. We'll leave options 1/2 as is mostly other that some formatting while moving the good stuff forward to always be available.
+
+We will setup the toolbox to auto refresh like our other one does once we have stats pulled forward.
+
+### Web frontend
+
+We've got the framework for a web front end built and we will be working on using python/flask to run a local web server you can use to install/manage/migrate your findora validator, stay tuned!

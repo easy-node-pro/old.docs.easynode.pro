@@ -1,0 +1,80 @@
+{
+  "-- Welcome --": {
+    "type": "separator",
+    "title": "Welcome"
+  },
+  "index": "Site Intro",
+  "-- Skills --": {
+    "type": "separator",
+    "title": "Skills"
+  },
+  "admin": "Server Admin Tools",
+  "power": "Power Users",
+  "-- Validators --": {
+    "type": "separator",
+    "title": "Validators"
+  },
+  "harmony": "Harmony Guides",
+  "findora": "Findora Guides",
+  "-- Developers --": {
+    "type": "separator",
+    "title": "Developers"
+  },
+  "api-docs": "API Guides",
+  "-- Space --": {
+    "type": "separator",
+    "title": ""
+  },
+  "-- Extras --": {
+    "type": "separator",
+    "title": "Extras"
+  },
+  "suggest": "Suggestions?",
+  "shoutout": "Shout Outs!",
+  "updates": "Updates Log",
+  "company": {
+    "title": "⚡ EasyNode.PRO ⚡",
+    "type": "menu",
+    "items": {
+      "easynode": {
+        "title": "Website",
+        "href": "https://easynode.pro",
+        "newWindow": true
+      },
+      "twitter": {
+        "title": "Twitter",
+        "href": "https://twitter.com/easynode",
+        "newWindow": true
+      },
+      "youtube": {
+        "title": "YouTube",
+        "href": "https://youtube.com/@easynode",
+        "newWindow": true
+      },
+      "blogs": {
+        "title": "Blogs",
+        "href": "https://blogs.easynode.pro",
+        "newWindow": true
+      },
+      "staking": {
+        "title": "Validators",
+        "href": "https://easynode.pro/ourvalidators",
+        "newWindow": true
+      }
+    }
+  },
+  "support": {
+    "title": "Support",
+    "type": "page"
+  },
+  "about": {
+    "title": "About",
+    "type": "page"
+  },
+  "contact": {
+    "title": "Links ↗",
+    "type": "page",
+    "href": "https://easynode.pro/links",
+    "newWindow": true
+  }
+}

@@ -1,0 +1,50 @@
+# Voting from CLI using hmy
+
+## hmy Version
+
+Make sure you've installed the most recent `hmy` file version with the info:
+
+```text
+Harmony (C) 2020. hmy, version v1-dbd9901 (runner@harmony.one 2022-08-29T08:51:21+0000)
+```
+
+You can run `./hmy version` to see your version, update if you are behind before voting.
+
+## Voting String
+
+Here's an example of a string that will work to vote for the [HIP-28](https://snapshot.org/#/harmony-mainnet.eth/proposal/0x98aec1cc7b92e6633c3ca0ef55bfde53de0355ef83ae738137122eb0feb5932e) string below:
+
+Yes vote:  
+```text copy
+./hmy governance vote-proposal --proposal 0x98aec1cc7b92e6633c3ca0ef55bfde53de0355ef83ae738137122eb0feb5932e --key serviceharmony --choice 1 --passphrase
+```
+
+No vote:  
+```text copy
+./hmy governance vote-proposal --proposal 0x98aec1cc7b92e6633c3ca0ef55bfde53de0355ef83ae738137122eb0feb5932e --key serviceharmony --choice 2 --passphrase
+```
+
+Abstain:  
+```text copy
+./hmy governance vote-proposal --proposal 0x98aec1cc7b92e6633c3ca0ef55bfde53de0355ef83ae738137122eb0feb5932e --key serviceharmony --choice 3 --passphrase
+```
+
+
+Notes:
+
+- Update serviceharmony to match your key name when you run `./hmy keys list` and enter the password you used to import/create that wallet when prompted.
+
+### String Breakdown
+
+- --proposal The ID at end of the url of the voting page you'd like to vote on.
+- --key This is your wallet name in `./hmy keys list`
+- --choice This is your voting choice, current theory is starts at 1 and descends the options. Can send a list if it's a multi option vote.
+- --passphrase Your wallet password you set on your node.
+
+## Basic Vote Type
+
+Here's what the choice option translates into so far from our testing:
+
+- --choice 1 = "Yes"
+- --choice 2 = "No"
+- --choice 3 = "Abstain"

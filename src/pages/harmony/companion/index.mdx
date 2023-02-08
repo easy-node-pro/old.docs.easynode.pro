@@ -1,0 +1,234 @@
+import { Callout } from "nextra-theme-docs";
+import Image from "next/image";
+import { Tab, Tabs } from "nextra-theme-docs";
+
+# New Harmony Validators
+Welcome to Easy Node Validator's Companion guide. Here we cover what it takes to become a Validator on Harmony ONE and what you can expect along the journey.
+
+This first page has notes you need to keep in mind while going through the [official manual installation](https://docs.harmony.one/home/network/validators/server-setup) if you choose that route for your first server.
+
+![Harmony Logo](/harmony_logo_white.png)
+
+<Tabs items={["Becoming a Validator", "Setting up a Server Node", "After Setup Steps", "Linux Administrator Skills"]}>
+  <Tab>
+    - Create nodes (servers) to sign blocks for your validator wallet
+    - Create a brand and market it, a lot
+    - Find a way to add to the community, make people know you're helping
+    - Answer questions in the official harmony support channels
+    - Work on getting more delegations, you'll need it
+    - Debate when it's an appropriate time to add a 2nd BLS key to your server (right now it's around 10 million before you look at a 2nd key)
+    - Start new nodes as info and shard conditions change daily
+  </Tab>
+  <Tab>
+    There's really not much to configuring a new harmony node server or rolling out an additional node when needed if you're familiar with Linux and if the following list is familiar to you:  
+
+    - Create cloud server
+    - Create a non-root user account
+    - Create a directory for the install files and database
+    - Download and install hmy & harmony
+    - Setup BLS keys in .hmy/blskeys
+    - Import or create a wallet
+    - Sync Database
+    - Install and start service
+    - Setup scripts to assist with management
+  </Tab>
+  <Tab>
+    After you're elected and you've worked hard enough to secure enough delegates to become stable here's what the validator life is like daily.  
+
+    - Monitor stats non stop on [Smart Stake's Next Election site](https://harmony.smartstake.io/election)
+    - Monitor stats on your nodes
+    - Monitor uptime (aka missed signings)
+    - Investigate missed signings
+    - Make decisions on adding or removing BLS keys before elections every 18ish hours
+    - Take crap for making any decision
+    - Market your brand some more to get more delegations
+    - Repeat
+  </Tab>
+  <Tab>
+    You'll have to commit to learning how to become a Linux Administrator, keep up with the server admin changes for Harmony and have time to assist your delegators if issues arise.  
+
+    Understand every command you run before you execute it and why you are performing it.  
+
+    - Be familiar with virtual machines and Ubuntu Server
+    - Know how to create, manipulate and update files and directories
+    - Know how to manage file permissions
+    - Know how to create users and manage permissions
+    - Know how to manage and modify bash scripts
+    - Know how to manage services
+    - Know how to read logs and troubleshoot issues that may arise.
+  </Tab>
+</Tabs>
+
+## Get started
+So you're ready to get started? Well let's get into what's next!
+
+### Server Selection
+The first thing to get setup is a server. It's up to you to select a provider and host with enough power to run your validator. Do some research as to which validator hosts are in use currently, this changes often.
+
+### User Account & SSH Keys
+
+We covered creating a user account in our [admin tools](/admin) section.
+
+## Create a Harmony folder
+
+We suggest creating a folder named harmony inside of your user account to store your files and database.
+
+Once you are logged into your new regular user account, create a harmony directory inside the home directory of the new user with the following command:
+
+```text copy
+mkdir ~/harmony
+```
+
+Every time you reconnect you'll have to change directory to your harmony folder. If you ever are "lost" after moving around and need to get back to the harmony folder type the following command:
+
+```text copy
+cd ~/harmony
+```
+
+When you connect or want to run commands, use the command above to get back to that folder. You'll want to run all of your installation commands and validator commands from this folder.
+
+## Firewall Setup Notes
+
+For your firewall we only suggest opening up the minimum required ports publicly.
+
+### Inbound Rules
+
+- 22 TCP SSH Access - We suggest locking this to your home or work IP address only and disabling password logins to avoid brute force attacks.
+- 6000 TCP
+- 9000 TCP
+
+### Outbound Rules
+You're safe to leave all outbound ports open on your firewalls to allow your server to talk out to the internet.
+
+### Validator Wallet
+<Callout emoji="ℹ️">
+  In the examples below don't forget to replace `serviceuser` with your custom account name before you run them if it's different!
+</Callout>
+
+#### Option A: Create on new validator
+As a validator your going to need a wallet for validation. The creation will come late in the guide, once your server is online and synced up. We suggest creating a brand new wallet and only using your designated "Validator Wallet" for validating and collecting the rewards you get from it to keep your data separate. You can send the create validator command below:  
+
+```text copy
+cd ~/harmony
+./hmy keys add serviceuser --passphrase
+```
+
+It will ask for your password twice, and then repeat back your mnemonic phrase. Keep it somewhere safe and secure and never share it with anyone! **You only get one shot at writing down your mnemonic phrase with this option, be very careful and record it properly**
+
+#### Option B: Using an existing wallet instead
+<Callout emoji="ℹ️">
+You can also import an existing wallet in a variety of ways. Take a look at the output of the command `./hmy keys` below to see your options.  
+</Callout>
+```text copy
+./hmy keys
+Manage your local keys
+
+Usage:
+  hmy keys [flags]
+  hmy keys [command]
+
+Available Commands:
+  add                   Create a new keystore key
+  check-passphrase      Check if passphrase for given account is valid.
+  export-ks             Export the keystore file contents
+  export-private-key    Export the secp256k1 private key
+  generate-bls-key      Generate bls keys then encrypt and save the private key with a requested passphrase
+  generate-bls-keys     Generates multiple bls keys for a given shard network configuration and then encrypts and saves the private key with a requested passphrase
+  get-public-bls-key    Get the public bls key associated with the provided private bls key
+  import-ks             Import an existing keystore key
+  import-private-key    Import an existing keystore key (only accept secp256k1 private keys)
+  list                  List all the local accounts
+  location              Show where `hmy` keeps accounts & their keys
+  mnemonic              Compute the bip39 mnemonic for some input entropy
+  recover-bls-key       Recover bls keys from an encrypted bls key file
+  recover-from-mnemonic Recover account from mnemonic
+  remove                Remove a key from the keystore
+  save-bls-key          Encrypt and save the bls private key with a requested passphrase
+
+Flags:
+  -h, --help   help for keys
+
+Global Flags:
+      --file string   Path to file for given command when applicable
+  -e, --ledger        Use ledger hardware wallet
+      --no-latest     Do not add 'latest' to RPC params
+      --no-pretty     Disable pretty print JSON outputs
+  -n, --node string   <host> (default "http://localhost:9500")
+  -v, --verbose       dump out debug information, same as env var HMY_ALL_DEBUG=true
+
+Use "hmy keys [command] --help" for more information about a command.
+```
+
+For example, if you'd like to recover your wallet from a mnemonic phrase, run the following command.
+
+```text copy
+./hmy keys recover-from-mnemonic serviceuser --passphrase
+```
+
+After you've created a wallet or imported an existing wallet successfully you can view your registered validator wallet address with the following command.
+
+```text copy
+./hmy keys list
+```
+
+### Fund Wallet
+
+Once you know which wallet you'll be using on your validator, you must send at least 10001 Harmony $ONE to the new wallet before you send your `create-validator` command on the blockchain during the Official Setup.
+
+## BLS Keys
+
+As a new user you'll be setting up some BLS Keys for your server to use on the blockchain during the Official Setup Guide. This section is expanded notes for when that time comes.
+
+### Setting up BLS Keys
+
+We suggest making 10 BLS keys on the shard you start with. Save them to your home PC. They can be reused anytime you deploy that shard again and only need to be created once. Once you have your .key & .pass files save them in a folder at home for reuse via WinSCP, scp, rsync, or however you send files to a server.
+
+When you start you won't need more than 1 for quite some time \(at least 9.5 million $ONE today\) but if you have the others in place you won't need to restart your services and miss blocks to add more keys to your nodes.
+
+### Creating new BLS keys
+
+This covers creation of your BLS Key\(s\) that you decided on before starting the guide. We encourage you to run one on shards 1-3 instead of just 0.
+
+Here you'll be creating the keys, creating a folder, and copying them into the proper folders. You may want to store a backup of these files as well.
+
+To keep things simple, set up a password file before you begin. This will make it easy to copy the password to the required .pass files.
+
+```text copy
+cd ~/harmony
+echo -E 'password' > blskey.pass
+```
+
+To create BLS Keys after you've completed the toolbox installation:
+
+```text copy
+./hmy keys generate-bls-keys --count 10 --shard 1 --passphrase-file blskey.pass
+```
+
+<p>
+  This will create .key files in your ~/harmony directory. Copy those key files
+  to your ~/harmony/.hmy/blskey folder.
+</p>
+```text copy cp *.key ~/harmony/.hmy/blskeys ```
+
+The last step to use your blskey.pass file is to edit your harmony.conf file and setup the path.
+
+```text copy
+nano ~/harmony/harmony.conf
+```
+
+Change the line `PassFile = []` to read:
+
+```text copy
+PassFile = "./blskey.pass"
+```
+
+Save and exit nano (Ctrl+X y enter)
+
+### Backup your .key and .pass files @ home or in the cloud
+
+Using your [admin transfer tool](/admin) of choice, transfer your .key and .pass files to your home pc and store them securely. The key and pass files are all you need backed up to quickly restore a node. Once you create keys for a shard you can save them and re-use them when needed. They do not need to be created again once you have working copies backed up.
+
+We suggest building a folder that contains a folder for each shard and storing your keys in there.
+
+## Ready to Install
+You're ready to hit our next section which you'll use along side the official harmony documentation to install. Each chapter in the next section matches up to the official Harmony docs website. Read our notes on what to do before you go through their pages so you can avoid a lot of unneccessary information.
