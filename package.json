@@ -1,38 +1,40 @@
 {
-  "name": "guides.easynode.pro",
-  "private": true,
-  "main": "index.js",
-  "license": "MIT",
+  "name": "nextra-docs-template",
+  "version": "0.0.1",
+  "description": "Nextra docs template",
   "scripts": {
-    "dev": "next",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "debug": "NODE_OPTIONS='--inspect' next dev",
-    "vercel-build": "yarn workspace nextra run build && yarn workspace nextra-theme-docs run build && yarn build",
-    "clean": "rimraf .next .turbo"
+    "start": "next start"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shuding/nextra-docs-template.git"
+  },
+  "author": "Shu Ding <g@shud.in>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shuding/nextra-docs-template/issues"
+  },
+  "homepage": "https://github.com/shuding/nextra-docs-template#readme",
   "dependencies": {
-    "next": ">=13",
+    "@sentry/nextjs": "^7.27.0",
+    "@vercel/edge-config": "^0.1.0",
+    "next": "^13.1.5",
     "nextjs-google-analytics": "^2.3.0",
-    "nextra": "workspace:*",
-    "nextra-theme-docs": "workspace:*",
-    "react": "*",
-    "react-dom": "*",
+    "nextra": "2.2.13",
+    "nextra-theme-docs": "2.2.13",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "sharp": "^0.31.3"
-  },
-  "dependenciesMeta": {
-    "nextra": {
-      "injected": true
-    },
-    "nextra-theme-docs": {
-      "injected": true
-    }
   },
   "engines": {
     "node": "17.x"
   },
-  "version": null,
   "devDependencies": {
+    "@types/gtag.js": "^0.0.12",
+    "@types/node": "18.11.18",
     "typescript": "^4.9.4"
   }
 }
