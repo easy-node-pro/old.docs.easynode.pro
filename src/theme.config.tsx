@@ -1,4 +1,4 @@
-import { useConfig } from 'nextra-theme-docs'
+import { useConfig } from "nextra-theme-docs";
 import { useRouter } from "next/router";
 
 /* eslint sort-keys: error */
@@ -7,15 +7,14 @@ import { useRouter } from "next/router";
  */
 export default {
   chat: {
-    link: 'https://discord.gg/Rcz5T6D9CV' // Next.js discord server,
+    link: "https://discord.gg/Rcz5T6D9CV", // Next.js discord server,
   },
   darkMode: true,
-  docsRepositoryBase:
-    'https://github.com/easy-node-pro/guides.easynode.pro',
+  docsRepositoryBase: "https://github.com/easy-node-pro/guides.easynode.pro",
   editLink: {
-    text: 'Edit this page on GitHub →'
+    text: "Edit this page on GitHub →",
   },
-  faviconGlyph: '⚡',
+  faviconGlyph: "⚡",
   footer: {
     text: (
       <>
@@ -31,31 +30,6 @@ export default {
       </>
     ),
   },
-  head: (
-    <>
-      <meta name="description" content="EasyNode.PRO ⚡ Blockchain Guides" />
-      <meta
-        name="og:description"
-        content="Our documents site. We help everyone crypto like a pro!"
-      />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta
-        name="twitter:image"
-        content="https://guides.easynode.pro/twitter_card_800x418.jpg"
-      />
-      <meta name="twitter:site:domain" content="guides.easynode.pro" />
-      <meta name="twitter:url" content="https://guides.easynode.pro" />
-      <meta name="og:title" content="EasyNode.PRO ⚡ Blockchain Guides" />
-      <meta
-        name="og:image"
-        content="https://guides.easynode.pro/twitter_card_800x418.jpg"
-      />
-      <meta
-        name="apple-mobile-web-app-title"
-        content="EasyNode.PRO ⚡ Blockchain Guides"
-      />
-    </>
-  ),
   logo: (
     <span className="mr-2 hidden font-extrabold md:inline">
       EasyNode.PRO ⚡ Blockchain Guides
@@ -73,8 +47,8 @@ export default {
     },
   },
   useNextSeoProps() {
-    const { frontMatter } = useConfig()
-    const { route } = useRouter()
+    const { frontMatter } = useConfig();
+    const { route } = useRouter();
     if (route !== "/") {
       return {
         titleTemplate: "%s - ⚡ Guides.EasyNode.PRO ⚡",
@@ -83,53 +57,76 @@ export default {
     return {
       additionalLinkTags: [
         {
-          href: '/192x192_App_Icon.png',
-          rel: 'apple-touch-icon',
-          sizes: '192x192'
+          href: "/192x192_App_Icon.png",
+          rel: "apple-touch-icon",
+          sizes: "192x192",
         },
         {
-          href: '/192x192_App_Icon.png',
-          rel: 'icon',
-          sizes: '192x192',
-          type: 'image/png'
+          href: "/192x192_App_Icon.png",
+          rel: "icon",
+          sizes: "192x192",
+          type: "image/png",
         },
         {
-          href: '/favicon-96x96.png',
-          rel: 'icon',
-          sizes: '96x96',
-          type: 'image/png'
+          href: "/favicon-96x96.png",
+          rel: "icon",
+          sizes: "96x96",
+          type: "image/png",
         },
         {
-          href: '/favicon-32x32.png',
-          rel: 'icon',
-          sizes: '32x32',
-          type: 'image/png'
+          href: "/favicon-32x32.png",
+          rel: "icon",
+          sizes: "32x32",
+          type: "image/png",
         },
         {
-          href: '/favicon-16x16.png',
-          rel: 'icon',
-          sizes: '16x16',
-          type: 'image/png'
-        }
+          href: "/favicon-16x16.png",
+          rel: "icon",
+          sizes: "16x16",
+          type: "image/png",
+        },
       ],
       additionalMetaTags: [
-        { content: 'en', httpEquiv: 'Content-Language' },
-        { content: 'Guides.EasyNode.PRO', name: 'apple-mobile-web-app-title' },
-        { content: '#fff', name: 'msapplication-TileColor' },
-        { content: '/192x192_App_Icon.png', name: 'msapplication-TileImage' }
+        { content: "en", httpEquiv: "Content-Language" },
+        { content: "#fff", name: "msapplication-TileColor" },
+        { content: "/192x192_App_Icon.png", name: "msapplication-TileImage" },
+        { content: "EasyNode.PRO ⚡ Blockchain Guides", name: "description" },
+        {
+          content: "Our documents site. We help everyone crypto like a pro!",
+          name: "og:description",
+        },
+        { content: "summary_large_image", name: "twitter:card" },
+        {
+          content: "https://guides.easynode.pro/twitter_card_800x418.jpg",
+          name: "twitter:image",
+        },
+        { content: "guides.easynode.pro", name: "twitter:site:domain" },
+        { content: "https://guides.easynode.pro", name: "twitter:url" },
+        { content: "EasyNode.PRO ⚡ Blockchain Guides", name: "og:title" },
+        {
+          content: "https://guides.easynode.pro/twitter_card_800x418.jpg",
+          name: "og:image",
+        },
+        {
+          content: "EasyNode.PRO ⚡ Blockchain Guides",
+          name: "apple-mobile-web-app-title",
+        },
       ],
-      description:
-        frontMatter.description || '⚡ Guides.EasyNode.PRO ⚡',
+      description: frontMatter.description || "⚡ Guides.EasyNode.PRO ⚡",
       openGraph: {
         images: [
-          { url: frontMatter.image || 'https://guides.easynode.pro/twitter_card_800x418.jpg' }
-        ]
+          {
+            url:
+              frontMatter.image ||
+              "https://guides.easynode.pro/twitter_card_800x418.jpg",
+          },
+        ],
       },
       titleTemplate: "%s - ⚡ Guides.EasyNode.PRO ⚡",
       twitter: {
-        cardType: 'summary_large_image',
-        site: 'https://guides.easynode.pro'
-      }
-    }
+        cardType: "summary_large_image",
+        site: "https://guides.easynode.pro",
+      },
+    };
   },
-}
+};
