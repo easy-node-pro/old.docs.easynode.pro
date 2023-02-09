@@ -1,7 +1,7 @@
 {
-  "name": "nextra-docs-template",
+  "name": "guides.easynode.pro",
   "version": "0.0.1",
-  "description": "Nextra docs template",
+  "description": "guides.easynode.pro",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -119,16 +119,16 @@ export default {
         { content: '/ms-icon-144x144.png', name: 'msapplication-TileImage' }
       ],
       description:
-        frontMatter.description || 'Nextra: the Next.js site builder',
+        frontMatter.description || '⚡ Guides.EasyNode.PRO ⚡',
       openGraph: {
         images: [
-          { url: frontMatter.image || 'https://nextra.vercel.app/og.png' }
+          { url: frontMatter.image || 'https://guides.easynode.pro/og.png' }
         ]
       },
-      titleTemplate: '%s – Nextra',
+      titleTemplate: "%s - ⚡ Guides.EasyNode.PRO ⚡",
       twitter: {
         cardType: 'summary_large_image',
-        site: 'https://nextra.vercel.app'
+        site: 'https://guides.easynode.pro'
       }
     }
   },
