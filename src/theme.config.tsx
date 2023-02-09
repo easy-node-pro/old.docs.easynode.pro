@@ -83,12 +83,12 @@ export default {
     return {
       additionalLinkTags: [
         {
-          href: '/apple-icon-180x180.png',
+          href: '/192x192_App_Icon.png',
           rel: 'apple-touch-icon',
-          sizes: '180x180'
+          sizes: '192x192'
         },
         {
-          href: '/android-icon-192x192.png',
+          href: '/192x192_App_Icon.png',
           rel: 'icon',
           sizes: '192x192',
           type: 'image/png'
@@ -114,15 +114,15 @@ export default {
       ],
       additionalMetaTags: [
         { content: 'en', httpEquiv: 'Content-Language' },
-        { content: 'Nextra', name: 'apple-mobile-web-app-title' },
+        { content: 'Guides.EasyNode.PRO', name: 'apple-mobile-web-app-title' },
         { content: '#fff', name: 'msapplication-TileColor' },
-        { content: '/ms-icon-144x144.png', name: 'msapplication-TileImage' }
+        { content: '/192x192_App_Icon.png', name: 'msapplication-TileImage' }
       ],
       description:
         frontMatter.description || '⚡ Guides.EasyNode.PRO ⚡',
       openGraph: {
         images: [
-          { url: frontMatter.image || 'https://guides.easynode.pro/og.png' }
+          { url: frontMatter.image || 'https://guides.easynode.pro/twitter_card_800x418.jpg' }
         ]
       },
       titleTemplate: "%s - ⚡ Guides.EasyNode.PRO ⚡",
