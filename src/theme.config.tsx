@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
  */
 export default {
   chat: {
-    link: "https://discord.gg/Rcz5T6D9CV", // Next.js discord server,
+    link: "https://bit.ly/easynodediscord", // Next.js discord server,
   },
   darkMode: true,
   docsRepositoryBase: "https://github.com/easy-node-pro/guides.easynode.pro",
