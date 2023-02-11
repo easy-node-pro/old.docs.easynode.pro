@@ -18,3 +18,5 @@ packages/nextra-theme-*/style.css
 .idea/
 .eslintcache
 .env
+# Local Netlify folder
+.netlify
