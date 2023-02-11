@@ -7,8 +7,6 @@ Hosted at [https://guides.easynode.pro](https://guides.easynode.pro)
 - New Validators - Our original Companion Guide
 - Experienced Validators - Our Validator Toolbox Guide
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c6f78ca84382441b970065bda0955525)](https://www.codacy.com/gh/easy-node-pro/companion/dashboard?utm_source=github.com&utm_medium=referral&utm_content=easy-node-pro/companion&utm_campaign=Badge_Grade)
-[![Codacy Security Scan](https://github.com/easy-node-pro/guides/actions/workflows/codacy.yml/badge.svg)](https://github.com/easy-node-pro/guides/actions/workflows/codacy.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/92a2f50c-bb9d-4154-8a92-3aa481f364ce/deploy-status)](https://app.netlify.com/sites/guideseasynodepro/deploys)
 
 ## Nextra Docs Template
