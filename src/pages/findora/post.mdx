@@ -97,7 +97,7 @@ Here we're going to cover the command to create your validator and the commands 
 
 ## Common Commands
 
-The most commonly used commands and how to find the rest that may be needed.
+The most commonly used commands and how to find the rest that may be needed. All of thse can be done via the toolbox menu or via the command line as shown below.
 
 <Tabs items={["Check Status and Versions", "Check Docker Logs"]} defaultIndex="0">
   <Tab>
@@ -200,13 +200,13 @@ Analyze the error - We suggest running the "update/restart" script from our repo
 <Tabs items={["mainnet", "testnet"]} defaultIndex="0">
   <Tab>
     ```text copy
-    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/update_mainnet.sh -O update_mainnet.sh && bash -x update_mainnet.sh
+    bash -x ~/findora-toolbox/src/bin/update_mainnet.sh
     ```
 
   </Tab>
   <Tab>
     ```text copy 
-    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/update_testnet.sh -O update_testnet.sh && bash -x update_testnet.sh
+    bash -x ~/findora-toolbox/src/bin/update_testnet.sh
     ```
   </Tab>
 </Tabs>
@@ -224,13 +224,13 @@ You can pull the latest copy and run it with the following code, this will wipe 
 <Tabs items={["mainnet", "testnet"]} defaultIndex="0">
   <Tab>
     ```text copy
-    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/safety_clean_mainnet.sh -O safety_clean.sh && bash -x safety_clean.sh
+    bash -x ~/findora-toolbox/src/bin/safety_clean_mainnet.sh
     ```
 
   </Tab>
   <Tab>
     ```text copy 
-    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/safety_clean_testnet.sh -O safety_clean.sh && bash -x safety_clean.sh
+    bash -x ~/findora-toolbox/src/bin/safety_clean_testnet.sh
     ```
   </Tab>
 </Tabs>
@@ -266,13 +266,13 @@ The update_mainnet.sh script will stop your container, pull in any updates, and 
 <Tabs items={["mainnet", "testnet"]} defaultIndex="0">
   <Tab>
     ```text copy
-    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/update_mainnet.sh -O update_mainnet.sh && bash -x update_mainnet.sh
+    bash -x ~/findora-toolbox/src/bin/update_mainnet.sh
     ```
 
   </Tab>
   <Tab>
     ```text copy 
-    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/update_testnet.sh -O update_testnet.sh && bash -x update_testnet.sh
+    bash -x ~/findora-toolbox/src/bin/update_testnet.sh
     ```
   </Tab>
 </Tabs>
@@ -286,13 +286,13 @@ To stop and reload the database on your server run the following code, choose th
 <Tabs items={["mainnet", "testnet"]} defaultIndex="0">
   <Tab>
     ```text copy
-    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/safety_clean_mainnet.sh -O safety_clean.sh && bash -x safety_clean.sh
+    bash -x ~/findora-toolbox/src/bin/safety_clean_mainnet.sh
     ```
 
   </Tab>
   <Tab>
     ```text copy 
-    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/safety_clean_testnet.sh -O safety_clean.sh && bash -x safety_clean.sh
+    bash -x ~/findora-toolbox/src/bin/safety_clean_testnet.sh
     ```
   </Tab>
 </Tabs>
@@ -304,13 +304,13 @@ Our fn_update script will pull down and setup your fn application with the lates
 <Tabs items={["mainnet", "testnet"]} defaultIndex="0">
   <Tab>
     ```text copy
-    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/fn_update_mainnet.sh -O fn_update.sh && bash -x fn_update.sh
+    bash -x ~/findora-toolbox/src/bin/fn_update_mainnet.sh
     ```
 
   </Tab>
   <Tab>
     ```text copy 
-    cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/main/fn_update_testnet.sh -O fn_update.sh && bash -x fn_update.sh
+    bash -x ~/findora-toolbox/src/bin/fn_update_testnet.sh
     ```
   </Tab>
 </Tabs>

@@ -86,12 +86,12 @@ Once you've logged back in and your user is in the docker group, run the folloin
 <Tabs items={["mainnet", "testnet"]} defaultIndex="0">
   <Tab>
   ```text copy
-  cd ~/ && sudo apt install python3-pip -y && git clone https://github.com/FindoraNetwork/findora-toolbox.git && cd findora-toolbox && pip3 install -r requirements.txt --quiet && cd ~/ && python3 ~/findora-toolbox/src/app.py --mainnet
+  cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/findora.sh && chmod +x findora.sh && ./findora.sh --mainnet
   ```
   </Tab>
   <Tab>
   ```text copy
-  cd ~/ && sudo apt install python3-pip -y && git clone https://github.com/FindoraNetwork/findora-toolbox.git && cd findora-toolbox && pip3 install -r requirements.txt --quiet && cd ~/ && python3 ~/findora-toolbox/src/app.py --testnet
+  cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/findora.sh && chmod +x findora.sh && ./findora.sh --testnet
   ```
   </Tab>
 </Tabs>
@@ -102,12 +102,26 @@ The installer will pull the installation script and get everything setup. At the
 
 > At this point you'll have a system that begins syncing automatically on the blockchain after the database download and unpacking completes. Wait for your `sync_status` to equal false before creating your validator or migrating to a new system.
 
-## Relaunch Toolbox
+### Relaunch Toolbox
 
 To re-start the toolbox with updates, run the following code:
 
 ```text copy
-cd ~/findora-toolbox/ && git pull && pip3 install -r requirements.txt --quiet && cd ~/ && python3 ~/findora-toolbox/src/app.py
+cd ~/ && ./findora.sh
+```
+
+### Show Stats
+
+To see your current stats run:
+```text copy
+cd ~/ && ./findora.sh --stats
+```
+
+### Help menu
+
+To see the help menu run:
+```text copy
+cd ~/ && ./findora.sh --help
 ```
 
 ## Post Installation
