@@ -83,18 +83,9 @@ At this point you need to [install docker using these instructions](/admin#docke
 
 Once you've logged back in and your user is in the docker group, run the folloing code to install the toolbox and begin installation on either `mainnet` or `testnet`. Our menu will launch and ask you a few simple questions to get you fully loaded and online:
 
-<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
-  <Tab>
-  ```text copy
-  cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/findora.sh && chmod +x findora.sh && ./findora.sh --mainnet
-  ```
-  </Tab>
-  <Tab>
-  ```text copy
-  cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/findora.sh && chmod +x findora.sh && ./findora.sh --testnet
-  ```
-  </Tab>
-</Tabs>
+```text copy
+cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/findora.sh && chmod +x findora.sh && ./findora.sh --installer
+```
 
 The installer will pull the installation script and get everything setup. At the end of the installer you'll have a fully working validator syncing up to the blockchain on a brand new tmp.gen.keypair and priv_validator_key.json file. These are usable as wallets but are also disposable still at this point. You can test out all the functions of a Findora server now as long as you don't run the staking and creation commands.
 
@@ -123,6 +114,8 @@ To see the help menu run:
 ```text copy
 cd ~/ && ./findora.sh --help
 ```
+
+![Toolbox help menu](/toolbox-help.jpg)
 
 ## Post Installation
 
