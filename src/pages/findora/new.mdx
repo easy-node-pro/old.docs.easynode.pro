@@ -2,13 +2,13 @@ import { Callout } from 'nextra-theme-docs'
 import { Tab, Tabs } from "nextra-theme-docs";
 
 # New Findora Validators
-Welcome to Easy Node Validator's Companion guide. Here we cover what it takes to become a Validator on Findora FRA and what you can expect along the journey.  
+Welcome to Easy Node Validator's Companion guide. This page is a guide that covers the lifestyle of a Findora validator. You'll see our notes on the 3 ways to use the official documents site to setup a server separate from this guide.  
 
 [![Findora Logo](/findora_logo_white.png)](/findora)
 
 ## General Overview
 ### How much time does it take to manage a validator?
-Being a Findora validator doesn't have a lot of time commitment to it. The systems run a Docker container and for the most part run smoothly. Setup monitoring with [vStatsFindoraBot](https://t.me/vStatsFindoraBot) and you'll know if you run into issues.
+Being a Findora validator doesn't have a lot of time commitment to it. The systems run a Docker container for the blockchain and the application `fn` for wallet interactions. Setup monitoring with [vStatsFindoraBot](https://t.me/vStatsFindoraBot) after you get your address and you'll know if you run into issues.  
 
 Here's some helpful tips to keep in mind along the way!  
 
@@ -20,8 +20,8 @@ Here's some helpful tips to keep in mind along the way!
     There's a few different ways to learn the software or to just simply get it installed. Here's the 3 current methods that work best. All of these methods assume you already setup a server with Docker and you're ready to get to installing:  
 
     - [Manual Method](https://docs.findora.org/validator-materials/node-setup-guides/manual-setup) - Use the Findora docs site to install. This is recommended for first time installers and people not familliar with Linux.
-    - [Script Method](/findora/new/script) - Our take on the "Automated Install" on the page above. We've made it smoother and added a lot of bells and whistles.
-    - [Validator Toolbox Method](/findora/toolbox) - Our new python app that installs & helps you manage your server. Makes everything super EASY!!!
+    - [Script Method](https://docs.findora.org/validator-materials/node-setup-guides/automated-setup) - Our take on the "Automated Install" on the page above. We've made it smoother and added a lot of bells and whistles.
+    - [Validator Toolbox Method](https://docs.findora.org/validator-materials/node-setup-guides/toolbox-setup) - Official Findora Validator Setup & Management Toolkit.
   </Tab>
   <Tab>
     Configuring a Findora node can be straight forward with either method we cover here & a cloud host provider. If you manually install Findora from their docs site or use home hardware here's some extra things to know:
@@ -31,7 +31,8 @@ Here's some helpful tips to keep in mind along the way!
     - Create a [non-root user account](/admin#user-account)
     - Setup passwordless login, change ssh port, disable password & root login for more security
     - Setup Firewall or port forwarding
-    - Pull scripts & run scripts or toolbox to help with installation from github
+    - Pull findora.sh script and run it
+    - Backup your key files
     - Know how to migrate to a new server for disaster recovery/Migrations
   </Tab>
   <Tab>
@@ -50,10 +51,11 @@ Here's some helpful tips to keep in mind along the way!
     - Repeat
   </Tab>
   <Tab>
-    You'll have to commit to learning how to become a Linux Administrator, keep up with the server admin changes for Findora and have time to assist your delegators if issues arise. Make sure you understand every command you run in this guide before you execute it and why you are performing it! A lot of steps may need customization and you'll want to save them for re-use later.  
+    With the validator toolbox it's super easy to setup and manage your server now. We'll leave our old notes below for you to reference for those that want to learn more after getting started.
 
     Some other things that may add to your skill level:  
     
+    - Read and understand all the commands you run!
     - Be familiar with virtual machines and Ubuntu Server
     - Know how to create, manipulate and update files and directories
     - Know how to manage file permissions
@@ -61,12 +63,12 @@ Here's some helpful tips to keep in mind along the way!
     - Know how to manage and modify bash scripts
     - Know how to manage services
     - Know how to read logs and troubleshoot issues that may arise.
-    - Learn [Docker](https://docker.com)
+    - Learn more about [Docker](https://docker.com)
   </Tab>
 </Tabs>
 
 ## Admin tools
-See our [Admin Tools guide](/admin) for Findora here. Same tools work well for Findora operators.
+See our [Admin Tools guide](/admin) for Findora Administrators for more info.
 
 ## Server Selection
 Grab a server. We suggest using a budget host with enough storage. Currently used providers (depending on location) are ovh.com / ovh.us, server4u, contabo. [Hetzner](https://hetzner.cloud/?ref=uUlKM6mNXPli) is no longer recommended for a host as crypto is against their policy but does work great for learning and testing a Findora server.

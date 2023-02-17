@@ -7,7 +7,7 @@ Here's a few things to know and check up on after you get a Findora server onlin
 ## Toolbox help
 You can find our baked in options and help menu by running:  
 ```text copy
-python3 ~/findora-toolbox/src/app.py -h
+./findora.sh -h
 ```
 
 ![Our help menu options as of 1/13/2023](/fra_help_options.png)
@@ -197,19 +197,9 @@ docker logs findorad
 
 Analyze the error - We suggest running the "update/restart" script from our repository first to try to fix the issue. Run the following code to run our update script (or use the option in the Validator Toolbox):
 
-<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
-  <Tab>
-    ```text copy
-    bash -x ~/findora-toolbox/src/bin/update_mainnet.sh
-    ```
-
-  </Tab>
-  <Tab>
-    ```text copy 
-    bash -x ~/findora-toolbox/src/bin/update_testnet.sh
-    ```
-  </Tab>
-</Tabs>
+```text copy
+./findora.sh -u
+```
 
 If everything goes well the container will restart, be back online and show stats at this point. If you still have an error, continue onto Safety Clean.  
 
@@ -221,19 +211,9 @@ If it fails and you still have the following error in your findorad logs at this
 
 You can pull the latest copy and run it with the following code, this will wipe and reload the database:
 
-<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
-  <Tab>
-    ```text copy
-    bash -x ~/findora-toolbox/src/bin/safety_clean_mainnet.sh
-    ```
-
-  </Tab>
-  <Tab>
-    ```text copy 
-    bash -x ~/findora-toolbox/src/bin/safety_clean_testnet.sh
-    ```
-  </Tab>
-</Tabs>
+```text copy
+./findora.sh --clean
+```
 
 At the end of our script, your stats will print out. You should be back online at this point and syncing should resume. 
 
@@ -241,16 +221,25 @@ At the end of our script, your stats will print out. You should be back online a
 
 Check your stats until `catching_up` is false with the following code:
 
-```text copy
-curl 'http://localhost:26657/status'
-```
+<Tabs items={["Toolbox Stats", "Classic Stats"]} defaultIndex="0">
+  <Tab>
+    ```text copy
+    ./findora.sh -s
+    ```
+  </Tab>
+  <Tab>
+    ```text copy
+    curl 'http://localhost:26657/status'
+    ```
+  </Tab>
+</Tabs>
 
 ### `fn` Troubleshooting
 
 Run `fn` and make sure it's error free. If you have any errors there's 3 commands to setup/reset `fn`, run the following for mainnet (replace mainnet with testnet if testing):
 
 ```text copy
-expor ROOT_DIR=/data/findora/mainnet && fn setup -S https://prod-mainnet.prod.findora.org && fn setup -O ${ROOT_DIR}/node.mnemonic && fn setup -K ${ROOT_DIR}/tendermint/config/priv_validator_key.json
+./findora.sh --fn
 ```
 
 Once you've reconnected the files with the above command `fn` show should now properly display your wallet (and if created on chain, validator) information.
@@ -263,63 +252,13 @@ Note: These are both included in the validator toolbox, but for those of you who
 
 The update_mainnet.sh script will stop your container, pull in any updates, and restart the container if your files are in the proper spot and your permissions are set properly. Operators also use this to restart their containers or start them up if they are down.
 
-<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
-  <Tab>
-    ```text copy
-    bash -x ~/findora-toolbox/src/bin/update_mainnet.sh
-    ```
-
-  </Tab>
-  <Tab>
-    ```text copy 
-    bash -x ~/findora-toolbox/src/bin/update_testnet.sh
-    ```
-  </Tab>
-</Tabs>
-
-### Safety Clean Script
-
-This script will wipe your data and reload a fresh database. This can take some time so there will be missed blocks but it will just clean the database, reload the database and restart your validator without wiping other files.
-
-To stop and reload the database on your server run the following code, choose the code for your network below:
-
-<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
-  <Tab>
-    ```text copy
-    bash -x ~/findora-toolbox/src/bin/safety_clean_mainnet.sh
-    ```
-
-  </Tab>
-  <Tab>
-    ```text copy 
-    bash -x ~/findora-toolbox/src/bin/safety_clean_testnet.sh
-    ```
-  </Tab>
-</Tabs>
-
-### `fn` Update
-
-Our fn_update script will pull down and setup your fn application with the latest version online. You can run the update with the following code:
-
-<Tabs items={["mainnet", "testnet"]} defaultIndex="0">
-  <Tab>
-    ```text copy
-    bash -x ~/findora-toolbox/src/bin/fn_update_mainnet.sh
-    ```
-
-  </Tab>
-  <Tab>
-    ```text copy 
-    bash -x ~/findora-toolbox/src/bin/fn_update_testnet.sh
-    ```
-  </Tab>
-</Tabs>
+```text copy
+./findora.sh -u
+```
 
 ## vStats Bot Findora
 
 Fortune Validator has created the telegram bot vStatsFindora to help you monitor your server. Sign up with the Telegram bot [right here](https://t.me/vStatsFindoraBot).
-
-
 
 ## Resources
 
