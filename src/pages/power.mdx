@@ -21,6 +21,7 @@ Security Notes:
     package_update: true
 
     manage-resolv-conf: true
+
     resolv_conf:
       nameservers:
         - '8.8.8.8'
@@ -31,52 +32,14 @@ Security Notes:
       - name: servicefindora
         groups:
           - docker
+          - sudo
         lock_passwd: true
         shell: /bin/bash
         ssh-authorized-keys:
-          - ssh-rsa ...Your Key Here...
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD5BlbwhmNr8OZ2DhrQJ7M4XMbzXAMhoLZAoDOIoPOcwtGo50W761nKpKmW3pn3uqXfL/GkPSuTvIrILdKHwgVLRUKY/tS3A3BGzSiOY3BoIdsCJPcYeErQciEWHMb0ARBji0qFROwKAdn6LI6JilgrWKE8HtCuqURMdMLThqWgDedBcn99TOcVJa/HWt37dJGajCIoK3iIvjDGW5WVRrirhAEh4IbHk0DC6uqOaA1i0IhWQERBawoQrSupB1vVBB0iHw1UuLzT40gLHb3kcbuz2oAITaAIOeQ4mqVF4wWQQJqYZudMAE96k8Ct6VmkvLFhmDDVH1dqUbKQ6iA5I0p596YwM50LxwAj0/NKpgWBbw3mWcubipTLDkABobs7ewb+s2ABZTSRt9rCi6rG+MyZprRGM7NQYjA/vWCb26mt3YqUfLbkWHnrwpUhuD/EvDK1Bv9uP7a/n0kDcIY9kWQLZ0tLzZZC4taxj8qrgD82l571cbPPcrkVPvxjolZC2UrWCQ+xwx5lc+QbIdklxsoLOl0XR73WVgNGrNpkqMiT99FiF05OBZj+cxtuUWOPV/K9SGbAlL3um3pEyMm8/bTHBy+MYzSDHJe+HjNvqSaWe5OAUzHBZC3tIFbgRdbtPnWSMAmsv3cwClBcX/UxiyEFti7WjTlcTKjUkFMDDcfi5Q==
         sudo:
           - ALL=(ALL) NOPASSWD:ALL
           
-    write_files:
-      - path: /etc/ssh/sshd_config
-        content: |
-          Port 2222
-          Protocol 2
-          HostKey /etc/ssh/ssh_host_rsa_key
-          HostKey /etc/ssh/ssh_host_dsa_key
-          HostKey /etc/ssh/ssh_host_ecdsa_key
-          HostKey /etc/ssh/ssh_host_ed25519_key
-          UsePrivilegeSeparation yes
-          KeyRegenerationInterval 3600
-          ServerKeyBits 1024
-          SyslogFacility AUTH
-          LogLevel INFO
-          LoginGraceTime 120
-          PermitRootLogin no
-          PermitEmptyPasswords no
-          PermitUserEnvironment yes
-          PasswordAuthentication no
-          StrictModes yes
-          DebianBanner no
-          RSAAuthentication yes
-          PubkeyAuthentication yes
-          IgnoreRhosts yes
-          RhostsRSAAuthentication no
-          HostbasedAuthentication no
-          ChallengeResponseAuthentication no
-          X11Forwarding no
-          X11DisplayOffset 10
-          PrintMotd no
-          PrintLastLog yes
-          TCPKeepAlive yes
-          AcceptEnv LANG LC_*
-          Subsystem sftp /usr/lib/openssh/sftp-server
-          UsePAM yes
-          MaxAuthTries 3
-          AllowAgentForwarding no
-          AllowUsers martin
-
     packages:
       - docker.io
       - docker-compose
@@ -108,6 +71,7 @@ Security Notes:
     package_update: true
 
     manage-resolv-conf: true
+
     resolv_conf:
       nameservers:
         - '8.8.8.8'
@@ -118,52 +82,14 @@ Security Notes:
       - name: servicefindora
         groups:
           - docker
+          - sudo
         lock_passwd: true
         shell: /bin/bash
         ssh-authorized-keys:
-          - ssh-rsa ...Your Key Here...
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD5BlbwhmNr8OZ2DhrQJ7M4XMbzXAMhoLZAoDOIoPOcwtGo50W761nKpKmW3pn3uqXfL/GkPSuTvIrILdKHwgVLRUKY/tS3A3BGzSiOY3BoIdsCJPcYeErQciEWHMb0ARBji0qFROwKAdn6LI6JilgrWKE8HtCuqURMdMLThqWgDedBcn99TOcVJa/HWt37dJGajCIoK3iIvjDGW5WVRrirhAEh4IbHk0DC6uqOaA1i0IhWQERBawoQrSupB1vVBB0iHw1UuLzT40gLHb3kcbuz2oAITaAIOeQ4mqVF4wWQQJqYZudMAE96k8Ct6VmkvLFhmDDVH1dqUbKQ6iA5I0p596YwM50LxwAj0/NKpgWBbw3mWcubipTLDkABobs7ewb+s2ABZTSRt9rCi6rG+MyZprRGM7NQYjA/vWCb26mt3YqUfLbkWHnrwpUhuD/EvDK1Bv9uP7a/n0kDcIY9kWQLZ0tLzZZC4taxj8qrgD82l571cbPPcrkVPvxjolZC2UrWCQ+xwx5lc+QbIdklxsoLOl0XR73WVgNGrNpkqMiT99FiF05OBZj+cxtuUWOPV/K9SGbAlL3um3pEyMm8/bTHBy+MYzSDHJe+HjNvqSaWe5OAUzHBZC3tIFbgRdbtPnWSMAmsv3cwClBcX/UxiyEFti7WjTlcTKjUkFMDDcfi5Q==
         sudo:
           - ALL=(ALL) NOPASSWD:ALL
           
-    write_files:
-      - path: /etc/ssh/sshd_config
-        content: |
-          Port 2222
-          Protocol 2
-          HostKey /etc/ssh/ssh_host_rsa_key
-          HostKey /etc/ssh/ssh_host_dsa_key
-          HostKey /etc/ssh/ssh_host_ecdsa_key
-          HostKey /etc/ssh/ssh_host_ed25519_key
-          UsePrivilegeSeparation yes
-          KeyRegenerationInterval 3600
-          ServerKeyBits 1024
-          SyslogFacility AUTH
-          LogLevel INFO
-          LoginGraceTime 120
-          PermitRootLogin no
-          PermitEmptyPasswords no
-          PermitUserEnvironment yes
-          PasswordAuthentication no
-          StrictModes yes
-          DebianBanner no
-          RSAAuthentication yes
-          PubkeyAuthentication yes
-          IgnoreRhosts yes
-          RhostsRSAAuthentication no
-          HostbasedAuthentication no
-          ChallengeResponseAuthentication no
-          X11Forwarding no
-          X11DisplayOffset 10
-          PrintMotd no
-          PrintLastLog yes
-          TCPKeepAlive yes
-          AcceptEnv LANG LC_*
-          Subsystem sftp /usr/lib/openssh/sftp-server
-          UsePAM yes
-          MaxAuthTries 3
-          AllowAgentForwarding no
-          AllowUsers martin
-
     packages:
       - docker.io
       - docker-compose
@@ -186,7 +112,7 @@ Security Notes:
     runcmd:
       - ufw default deny incoming
       - ufw default allow outgoing
-      - ufw allow 2222/tcp
+      - ufw allow 22/tcp
       - ufw allow 8545/tcp
       - ufw allow 8667/tcp
       - ufw allow 8668/tcp
@@ -206,6 +132,7 @@ Security Notes:
     package_update: true
 
     manage-resolv-conf: true
+
     resolv_conf:
       nameservers:
         - '8.8.8.8'
@@ -213,55 +140,17 @@ Security Notes:
         - '1.1.1.1'
 
     users:
-      - name: serviceharmony
+      - name: servicefindora
         groups:
           - docker
+          - sudo
         lock_passwd: true
         shell: /bin/bash
         ssh-authorized-keys:
-          - ssh-rsa ...Your Key Here...
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD5BlbwhmNr8OZ2DhrQJ7M4XMbzXAMhoLZAoDOIoPOcwtGo50W761nKpKmW3pn3uqXfL/GkPSuTvIrILdKHwgVLRUKY/tS3A3BGzSiOY3BoIdsCJPcYeErQciEWHMb0ARBji0qFROwKAdn6LI6JilgrWKE8HtCuqURMdMLThqWgDedBcn99TOcVJa/HWt37dJGajCIoK3iIvjDGW5WVRrirhAEh4IbHk0DC6uqOaA1i0IhWQERBawoQrSupB1vVBB0iHw1UuLzT40gLHb3kcbuz2oAITaAIOeQ4mqVF4wWQQJqYZudMAE96k8Ct6VmkvLFhmDDVH1dqUbKQ6iA5I0p596YwM50LxwAj0/NKpgWBbw3mWcubipTLDkABobs7ewb+s2ABZTSRt9rCi6rG+MyZprRGM7NQYjA/vWCb26mt3YqUfLbkWHnrwpUhuD/EvDK1Bv9uP7a/n0kDcIY9kWQLZ0tLzZZC4taxj8qrgD82l571cbPPcrkVPvxjolZC2UrWCQ+xwx5lc+QbIdklxsoLOl0XR73WVgNGrNpkqMiT99FiF05OBZj+cxtuUWOPV/K9SGbAlL3um3pEyMm8/bTHBy+MYzSDHJe+HjNvqSaWe5OAUzHBZC3tIFbgRdbtPnWSMAmsv3cwClBcX/UxiyEFti7WjTlcTKjUkFMDDcfi5Q==
         sudo:
           - ALL=(ALL) NOPASSWD:ALL
           
-    write_files:
-      - path: /etc/ssh/sshd_config
-        content: |
-          Port 2222
-          Protocol 2
-          HostKey /etc/ssh/ssh_host_rsa_key
-          HostKey /etc/ssh/ssh_host_dsa_key
-          HostKey /etc/ssh/ssh_host_ecdsa_key
-          HostKey /etc/ssh/ssh_host_ed25519_key
-          UsePrivilegeSeparation yes
-          KeyRegenerationInterval 3600
-          ServerKeyBits 1024
-          SyslogFacility AUTH
-          LogLevel INFO
-          LoginGraceTime 120
-          PermitRootLogin no
-          PermitEmptyPasswords no
-          PermitUserEnvironment yes
-          PasswordAuthentication no
-          StrictModes yes
-          DebianBanner no
-          RSAAuthentication yes
-          PubkeyAuthentication yes
-          IgnoreRhosts yes
-          RhostsRSAAuthentication no
-          HostbasedAuthentication no
-          ChallengeResponseAuthentication no
-          X11Forwarding no
-          X11DisplayOffset 10
-          PrintMotd no
-          PrintLastLog yes
-          TCPKeepAlive yes
-          AcceptEnv LANG LC_*
-          Subsystem sftp /usr/lib/openssh/sftp-server
-          UsePAM yes
-          MaxAuthTries 3
-          AllowAgentForwarding no
-          AllowUsers martin
-
     packages:
       - docker.io
       - docker-compose
@@ -293,6 +182,7 @@ Security Notes:
     package_update: true
 
     manage-resolv-conf: true
+
     resolv_conf:
       nameservers:
         - '8.8.8.8'
@@ -300,55 +190,17 @@ Security Notes:
         - '1.1.1.1'
 
     users:
-      - name: serviceharmony
+      - name: servicefindora
         groups:
           - docker
+          - sudo
         lock_passwd: true
         shell: /bin/bash
         ssh-authorized-keys:
-          - ssh-rsa ...Your Key Here...
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD5BlbwhmNr8OZ2DhrQJ7M4XMbzXAMhoLZAoDOIoPOcwtGo50W761nKpKmW3pn3uqXfL/GkPSuTvIrILdKHwgVLRUKY/tS3A3BGzSiOY3BoIdsCJPcYeErQciEWHMb0ARBji0qFROwKAdn6LI6JilgrWKE8HtCuqURMdMLThqWgDedBcn99TOcVJa/HWt37dJGajCIoK3iIvjDGW5WVRrirhAEh4IbHk0DC6uqOaA1i0IhWQERBawoQrSupB1vVBB0iHw1UuLzT40gLHb3kcbuz2oAITaAIOeQ4mqVF4wWQQJqYZudMAE96k8Ct6VmkvLFhmDDVH1dqUbKQ6iA5I0p596YwM50LxwAj0/NKpgWBbw3mWcubipTLDkABobs7ewb+s2ABZTSRt9rCi6rG+MyZprRGM7NQYjA/vWCb26mt3YqUfLbkWHnrwpUhuD/EvDK1Bv9uP7a/n0kDcIY9kWQLZ0tLzZZC4taxj8qrgD82l571cbPPcrkVPvxjolZC2UrWCQ+xwx5lc+QbIdklxsoLOl0XR73WVgNGrNpkqMiT99FiF05OBZj+cxtuUWOPV/K9SGbAlL3um3pEyMm8/bTHBy+MYzSDHJe+HjNvqSaWe5OAUzHBZC3tIFbgRdbtPnWSMAmsv3cwClBcX/UxiyEFti7WjTlcTKjUkFMDDcfi5Q==
         sudo:
           - ALL=(ALL) NOPASSWD:ALL
           
-    write_files:
-      - path: /etc/ssh/sshd_config
-        content: |
-          Port 2222
-          Protocol 2
-          HostKey /etc/ssh/ssh_host_rsa_key
-          HostKey /etc/ssh/ssh_host_dsa_key
-          HostKey /etc/ssh/ssh_host_ecdsa_key
-          HostKey /etc/ssh/ssh_host_ed25519_key
-          UsePrivilegeSeparation yes
-          KeyRegenerationInterval 3600
-          ServerKeyBits 1024
-          SyslogFacility AUTH
-          LogLevel INFO
-          LoginGraceTime 120
-          PermitRootLogin no
-          PermitEmptyPasswords no
-          PermitUserEnvironment yes
-          PasswordAuthentication no
-          StrictModes yes
-          DebianBanner no
-          RSAAuthentication yes
-          PubkeyAuthentication yes
-          IgnoreRhosts yes
-          RhostsRSAAuthentication no
-          HostbasedAuthentication no
-          ChallengeResponseAuthentication no
-          X11Forwarding no
-          X11DisplayOffset 10
-          PrintMotd no
-          PrintLastLog yes
-          TCPKeepAlive yes
-          AcceptEnv LANG LC_*
-          Subsystem sftp /usr/lib/openssh/sftp-server
-          UsePAM yes
-          MaxAuthTries 3
-          AllowAgentForwarding no
-          AllowUsers martin
-
     packages:
       - docker.io
       - docker-compose
@@ -371,7 +223,7 @@ Security Notes:
     runcmd:
       - ufw default deny incoming
       - ufw default allow outgoing
-      - ufw allow 2222/tcp
+      - ufw allow 22/tcp
       - ufw allow 6000/tcp
       - ufw allow 9000/tcp
       - ufw enable
