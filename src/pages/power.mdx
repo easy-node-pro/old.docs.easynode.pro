@@ -10,22 +10,22 @@ This cloud init installs all pre-requirements for both chains before you even st
 ```text copy
 #cloud-config
 users:
-  - name: serviceuser
+  - name: servicefindora
     groups: sudo
     shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh-authorized-keys:
-      - ssh-rsa AAAAB3N_YOUR_PUBLIC_KEY_HERE_Fti7WjTlcTKjUkFMDDcfi5Q==
+      - ssh-rsa AAAAB3NzaC1yc_YOUR_PUB_KEY_HERE_i7WjTlcTKjUkFMDDcfi5Q==
 package_upgrade: true
 runcmd:
   - apt-get update
   - apt-get upgrade -y
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
   - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-  - apt install apt-transport-https ca-certificates curl software-properties-common docker-ce docker-ce-cli containerd.io bind9-dnsutils git python3-pip python3-dotenv unzip -y
+  - apt install apt-transport-https ca-certificates curl software-properties-common docker-ce docker-ce-cli docker-compose containerd.io bind9-dnsutils git python3-pip python3-dotenv unzip -y
   - systemctl start docker
   - systemctl enable docker
-  - usermod -aG docker serviceuser
+  - usermod -aG docker servicefindora
   ```
 
 **Note**: The cloud-init does take a few minutes to run after your server comes online. Wait a few minutes for this to complete or verifiy it finishes up by watching the logs with `sudo tail -f /var/log/syslog` to see it complete.  
@@ -33,15 +33,22 @@ runcmd:
 ## Findora
 If you're going to be installing Findora you will need to exit your session and start a new one to join the Docker group. Run the command `groups` to verify your account has docker listed as a group.
 
-To pull and install the Findora Validator Toolbox, run the following command:
+Pull the runner to your servery by running the following command to also start the installer:
 ```text copy
-cd ~/ && git clone https://github.com/FindoraNetwork/findora-toolbox.git && cd ~/findora-toolbox && pip3 install -r requirements.txt --quiet && cd ~/ && python3 ~/findora-toolbox/src/app.py
+cd ~/ && wget https://raw.githubusercontent.com/FindoraNetwork/findora-toolbox/main/src/bin/findora.sh && chmod +x findora.sh && ./findora.sh --installer
 ```
 
 The installer will start up and ask if you'd like mainnet or testnet and begin installation. To re-launch the menu with the latest updates after installation completes, run:
 ```text copy
-cd ~/findora-toolbox/ && git pull && pip3 install -r requirements.txt --quiet && cd ~/ && python3 ~/findora-toolbox/src/app.py
+./findora.sh
 ```
+
+Show all options with:
+```text copy
+./findora.sh --help
+```
+
+![Toolbox help menu](/toolbox-help.jpg)
 
 ## Harmony
 To pull and install the Harmony Validator Toolbox, run the following command:
