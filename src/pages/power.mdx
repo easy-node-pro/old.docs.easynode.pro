@@ -1,33 +1,387 @@
+import { Tab, Tabs } from "nextra-theme-docs";
+
 # Power Users
 
 ## cloud-init
-If you know if your server provider has cloud init, you're a power user. A few hosts that have cloud-init include OVH, Hetzner, Digital Ocean, Vultr and many many more.
+If you know if your server provider has cloud init, you're a power user. A few hosts that have cloud-init include OVH, Hetzner, Digital Ocean, Vultr and many many more. Here's our custom cloud-init that will prep any VPS for either the Harmony or Findora! Thanks for the security hardening tips [from here](https://gist.github.com/MrGraversen/734364483641afae903c8e86ce464868).  
 
-Here's our custom cloud-init that will prep any VPS for either the Harmony or Findora (or both) Validator Toolboxes!  
+To use the code below simply replace the ssh-rsa key with your id_rsa.pub key and set the username you would like to use on the server (currently `serviceuser` in 4 spots this example, change it if you'd like to customize).
 
-This cloud init installs all pre-requirements for both chains before you even start using your new server. To use the code below simply replace the ssh-rsa key with your id_rsa.pub key and set the username you would like to use on the server (currently `serviceuser` in 4 spots this example, change it if you'd like to customize).
+Security Notes:
+- You can customize any of this!
+- We included a config that sets up UFW for you if you use it! Cloud providers may have their own firewall, your choice!
+- We set the SSH port to 2222, you can change this to whatever you'd like. Make sure to change the ufw rule that matches.
+- Inject your `- ssh-rsa ...Your Key Here...` into the cloud-init users section below.
 
-```text copy
-#cloud-config
-users:
-  - name: serviceuser
-    groups: sudo
-    shell: /bin/bash
-    sudo: ['ALL=(ALL) NOPASSWD:ALL']
-    ssh-authorized-keys:
-      - ssh-rsa AAAAB3NzaC1yc_YOUR_PUB_KEY_HERE_i7WjTlcTKjUkFMDDcfi5Q==
-package_upgrade: true
-runcmd:
-  - apt-get update
-  - apt-get upgrade -y
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-  - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-  - apt install apt-transport-https ca-certificates curl software-properties-common docker-ce docker-ce-cli docker-compose containerd.io bind9-dnsutils git python3-pip python3-dotenv unzip -y
-  - systemctl start docker
-  - systemctl enable docker
-  - usermod -aG docker serviceuser
-  ```
+<Tabs items={["Findora cloud-init", "Findora w/ UFW Settings cloud-init", "Harmony cloud-init", "Harmony w/ UFW Settings cloud-init"]} defaultIndex="0">
+  <Tab>
+    ```text copy
+    #cloud-config
 
+    package_update: true
+
+    manage-resolv-conf: true
+    resolv_conf:
+      nameservers:
+        - '8.8.8.8'
+        - '8.8.4.4'
+        - '1.1.1.1'
+
+    users:
+      - name: servicefindora
+        groups:
+          - docker
+        lock_passwd: true
+        shell: /bin/bash
+        ssh-authorized-keys:
+          - ssh-rsa ...Your Key Here...
+        sudo:
+          - ALL=(ALL) NOPASSWD:ALL
+          
+    write_files:
+      - path: /etc/ssh/sshd_config
+        content: |
+          Port 2222
+          Protocol 2
+          HostKey /etc/ssh/ssh_host_rsa_key
+          HostKey /etc/ssh/ssh_host_dsa_key
+          HostKey /etc/ssh/ssh_host_ecdsa_key
+          HostKey /etc/ssh/ssh_host_ed25519_key
+          UsePrivilegeSeparation yes
+          KeyRegenerationInterval 3600
+          ServerKeyBits 1024
+          SyslogFacility AUTH
+          LogLevel INFO
+          LoginGraceTime 120
+          PermitRootLogin no
+          PermitEmptyPasswords no
+          PermitUserEnvironment yes
+          PasswordAuthentication no
+          StrictModes yes
+          DebianBanner no
+          RSAAuthentication yes
+          PubkeyAuthentication yes
+          IgnoreRhosts yes
+          RhostsRSAAuthentication no
+          HostbasedAuthentication no
+          ChallengeResponseAuthentication no
+          X11Forwarding no
+          X11DisplayOffset 10
+          PrintMotd no
+          PrintLastLog yes
+          TCPKeepAlive yes
+          AcceptEnv LANG LC_*
+          Subsystem sftp /usr/lib/openssh/sftp-server
+          UsePAM yes
+          MaxAuthTries 3
+          AllowAgentForwarding no
+          AllowUsers martin
+
+    packages:
+      - docker.io
+      - docker-compose
+      - fail2ban
+      - git
+      - bind9-dnsutils
+      - python3-pip
+      - python3-dotenv
+      - ufw
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+      - bat
+      - tree
+      - zip
+      - unzip
+
+    power_state:
+      mode: reboot
+      condition: True
+    ```
+  </Tab>
+  <Tab>
+    ```text copy
+    #cloud-config
+
+    package_update: true
+
+    manage-resolv-conf: true
+    resolv_conf:
+      nameservers:
+        - '8.8.8.8'
+        - '8.8.4.4'
+        - '1.1.1.1'
+
+    users:
+      - name: servicefindora
+        groups:
+          - docker
+        lock_passwd: true
+        shell: /bin/bash
+        ssh-authorized-keys:
+          - ssh-rsa ...Your Key Here...
+        sudo:
+          - ALL=(ALL) NOPASSWD:ALL
+          
+    write_files:
+      - path: /etc/ssh/sshd_config
+        content: |
+          Port 2222
+          Protocol 2
+          HostKey /etc/ssh/ssh_host_rsa_key
+          HostKey /etc/ssh/ssh_host_dsa_key
+          HostKey /etc/ssh/ssh_host_ecdsa_key
+          HostKey /etc/ssh/ssh_host_ed25519_key
+          UsePrivilegeSeparation yes
+          KeyRegenerationInterval 3600
+          ServerKeyBits 1024
+          SyslogFacility AUTH
+          LogLevel INFO
+          LoginGraceTime 120
+          PermitRootLogin no
+          PermitEmptyPasswords no
+          PermitUserEnvironment yes
+          PasswordAuthentication no
+          StrictModes yes
+          DebianBanner no
+          RSAAuthentication yes
+          PubkeyAuthentication yes
+          IgnoreRhosts yes
+          RhostsRSAAuthentication no
+          HostbasedAuthentication no
+          ChallengeResponseAuthentication no
+          X11Forwarding no
+          X11DisplayOffset 10
+          PrintMotd no
+          PrintLastLog yes
+          TCPKeepAlive yes
+          AcceptEnv LANG LC_*
+          Subsystem sftp /usr/lib/openssh/sftp-server
+          UsePAM yes
+          MaxAuthTries 3
+          AllowAgentForwarding no
+          AllowUsers martin
+
+    packages:
+      - docker.io
+      - docker-compose
+      - fail2ban
+      - git
+      - bind9-dnsutils
+      - python3-pip
+      - python3-dotenv
+      - ufw
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+      - bat
+      - tree
+      - zip
+      - unzip
+
+    runcmd:
+      - ufw default deny incoming
+      - ufw default allow outgoing
+      - ufw allow 2222/tcp
+      - ufw allow 8545/tcp
+      - ufw allow 8667/tcp
+      - ufw allow 8668/tcp
+      - ufw allow 8669/tcp
+      - ufw allow 26657/tcp
+      - ufw enable
+
+    power_state:
+      mode: reboot
+      condition: True
+    ```
+  </Tab>
+  <Tab>
+    ```text copy
+    #cloud-config
+
+    package_update: true
+
+    manage-resolv-conf: true
+    resolv_conf:
+      nameservers:
+        - '8.8.8.8'
+        - '8.8.4.4'
+        - '1.1.1.1'
+
+    users:
+      - name: serviceharmony
+        groups:
+          - docker
+        lock_passwd: true
+        shell: /bin/bash
+        ssh-authorized-keys:
+          - ssh-rsa ...Your Key Here...
+        sudo:
+          - ALL=(ALL) NOPASSWD:ALL
+          
+    write_files:
+      - path: /etc/ssh/sshd_config
+        content: |
+          Port 2222
+          Protocol 2
+          HostKey /etc/ssh/ssh_host_rsa_key
+          HostKey /etc/ssh/ssh_host_dsa_key
+          HostKey /etc/ssh/ssh_host_ecdsa_key
+          HostKey /etc/ssh/ssh_host_ed25519_key
+          UsePrivilegeSeparation yes
+          KeyRegenerationInterval 3600
+          ServerKeyBits 1024
+          SyslogFacility AUTH
+          LogLevel INFO
+          LoginGraceTime 120
+          PermitRootLogin no
+          PermitEmptyPasswords no
+          PermitUserEnvironment yes
+          PasswordAuthentication no
+          StrictModes yes
+          DebianBanner no
+          RSAAuthentication yes
+          PubkeyAuthentication yes
+          IgnoreRhosts yes
+          RhostsRSAAuthentication no
+          HostbasedAuthentication no
+          ChallengeResponseAuthentication no
+          X11Forwarding no
+          X11DisplayOffset 10
+          PrintMotd no
+          PrintLastLog yes
+          TCPKeepAlive yes
+          AcceptEnv LANG LC_*
+          Subsystem sftp /usr/lib/openssh/sftp-server
+          UsePAM yes
+          MaxAuthTries 3
+          AllowAgentForwarding no
+          AllowUsers martin
+
+    packages:
+      - docker.io
+      - docker-compose
+      - fail2ban
+      - git
+      - bind9-dnsutils
+      - python3-pip
+      - python3-dotenv
+      - ufw
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+      - bat
+      - tree
+      - zip
+      - unzip
+
+    power_state:
+      mode: reboot
+      condition: True
+    ```
+  </Tab>
+  <Tab>
+    ```text copy
+    #cloud-config
+
+    package_update: true
+
+    manage-resolv-conf: true
+    resolv_conf:
+      nameservers:
+        - '8.8.8.8'
+        - '8.8.4.4'
+        - '1.1.1.1'
+
+    users:
+      - name: serviceharmony
+        groups:
+          - docker
+        lock_passwd: true
+        shell: /bin/bash
+        ssh-authorized-keys:
+          - ssh-rsa ...Your Key Here...
+        sudo:
+          - ALL=(ALL) NOPASSWD:ALL
+          
+    write_files:
+      - path: /etc/ssh/sshd_config
+        content: |
+          Port 2222
+          Protocol 2
+          HostKey /etc/ssh/ssh_host_rsa_key
+          HostKey /etc/ssh/ssh_host_dsa_key
+          HostKey /etc/ssh/ssh_host_ecdsa_key
+          HostKey /etc/ssh/ssh_host_ed25519_key
+          UsePrivilegeSeparation yes
+          KeyRegenerationInterval 3600
+          ServerKeyBits 1024
+          SyslogFacility AUTH
+          LogLevel INFO
+          LoginGraceTime 120
+          PermitRootLogin no
+          PermitEmptyPasswords no
+          PermitUserEnvironment yes
+          PasswordAuthentication no
+          StrictModes yes
+          DebianBanner no
+          RSAAuthentication yes
+          PubkeyAuthentication yes
+          IgnoreRhosts yes
+          RhostsRSAAuthentication no
+          HostbasedAuthentication no
+          ChallengeResponseAuthentication no
+          X11Forwarding no
+          X11DisplayOffset 10
+          PrintMotd no
+          PrintLastLog yes
+          TCPKeepAlive yes
+          AcceptEnv LANG LC_*
+          Subsystem sftp /usr/lib/openssh/sftp-server
+          UsePAM yes
+          MaxAuthTries 3
+          AllowAgentForwarding no
+          AllowUsers martin
+
+    packages:
+      - docker.io
+      - docker-compose
+      - fail2ban
+      - git
+      - bind9-dnsutils
+      - python3-pip
+      - python3-dotenv
+      - ufw
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+      - bat
+      - tree
+      - zip
+      - unzip
+
+    runcmd:
+      - ufw default deny incoming
+      - ufw default allow outgoing
+      - ufw allow 2222/tcp
+      - ufw allow 6000/tcp
+      - ufw allow 9000/tcp
+      - ufw enable
+
+    power_state:
+      mode: reboot
+      condition: True
+    ```
+  </Tab>
+</Tabs>
 **Note**: The cloud-init does take a few minutes to run after your server comes online. Wait a few minutes for this to complete or verifiy it finishes up by watching the logs with `sudo tail -f /var/log/syslog` to see it complete.  
 
 ## Findora
