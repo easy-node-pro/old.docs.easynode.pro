@@ -10,7 +10,7 @@ This cloud init installs all pre-requirements for both chains before you even st
 ```text copy
 #cloud-config
 users:
-  - name: servicefindora
+  - name: serviceuser
     groups: sudo
     shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
@@ -25,7 +25,7 @@ runcmd:
   - apt install apt-transport-https ca-certificates curl software-properties-common docker-ce docker-ce-cli docker-compose containerd.io bind9-dnsutils git python3-pip python3-dotenv unzip -y
   - systemctl start docker
   - systemctl enable docker
-  - usermod -aG docker servicefindora
+  - usermod -aG docker serviceuser
   ```
 
 **Note**: The cloud-init does take a few minutes to run after your server comes online. Wait a few minutes for this to complete or verifiy it finishes up by watching the logs with `sudo tail -f /var/log/syslog` to see it complete.  
