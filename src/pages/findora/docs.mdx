@@ -1,6 +1,6 @@
 # Toolbox Documents
 
-Here's a deep dive into how the toolbox works currently. If you're looking for the installation instrctuions, those are [here](/findora/toolbox).
+Here's a deep dive into how the toolbox works currently. If you're looking for the installation instrctuions, those are in the official documents [here](https://docs.findora.org/validator-materials/node-setup-guides/toolbox-setup).
 
 ![Findora Loading](/findora_loader.png)
 
@@ -15,30 +15,35 @@ We put together a video taking a deeper look into the validator toolbox.
 
 ## Installer
 
-On first run, you will be asked if you'd like to install (fresh server) and then if you want a `mainnet` or `testnet` setup. On an existing server it will ask if this server runs `mainnet` or `testnet` (will work on auto detect soon!).
+The first time you run ./findora.sh on a brand new server or on an existing one for the first time you'll get our installer. Pick your options and go!
 
-The installer will pull the installation script and get everything setup. At the end of the installer you'll have a fully working validator syncing up to the blockchain on a brand new tmp.gen.keypair and priv_validator_key.json file. These are usable as wallets but are also disposable still at this point. You can test out all the functions of a Findora server now as long as you don't run the staking and creation commands.
+See the help menu options anytime with:  
+``` text copy
+./findora.sh -h
+```
 
-The Toolbox will also create the folder ~/findora_backup - Each time you launch it will recheck the files and notify you if it detects any issues.
-
-You can do all the testing you'd like at this point and wipe the server with no harm. If you'd like to go live with these keys [here's the remaining things](/findora/post#create-staker_memo-file) that need to be performed after installation:
+![Our help menu options as of 2/17/2023](/fra_help_options.png)
 
 ## Menu Options
 
 We're still filling out the menu options, here's a current shot of the options as of 12/15/2022:
 
-![Findora Toolbox Menu Options](/findora_menu_121522.png)
+![Findora Toolbox Menu Options](/findora_menu_21723.png)
 | Option | Function | Notes |
 | :---- | :---: | :---- |
 | 1 | Show 'curl' stats info | Shows output of `curl 'http://localhost:26657/status'`, most info will be moved to front page
 | 2 | Show 'fn' stats info | Shows output of `fn show`, most info will be moved to front page
-| 3 | Show Balance | Coming soon, will be moved to front page
+| 3 | Claim Pending FRA | Claim your pending rewards
+| 4 | Transfer FRA | Send your FRA to another address
+| 5 | Set Transfer Options Menu | A menu to configure your transfer options
+| 6 | Change Rate or Info Menu | A menu to configure your rate or update your validator's info via staker_memo
+| 7 | Update `fn` Application | Pull and update to the latest version of the `fn` application
 | 8 | Update Findora Container | Pull latest version, re-create and restart local server container, you may miss blocks
 | 9 | Run Safety Clean | Runs the safety_clean script, wipes database, preserves wallet info, full reset of system
 | 10 | Update Operating System | Safely stops your container before running updates, you may miss blocks
-| 13 | Show system disk info | Info about hard drive space!
-| 14 | TMI about your Validator | A validator info dump, coming soon?
-| 15 | TMI about your Server | All of the hardware information on your VPS
+| 11 | Show system disk info | Info about hard drive space!
+| 12 | TMI about your Validator | A validator info dump, coming soon?
+| 13 | TMI about your Server | All of the hardware information on your VPS
 | 888 | Migrate to this Server | A hidden option, only enabled if you follow the [Moving Servers](/findora/moving) guide.
 | 999 | Reboot Server | Safely stop your container & reboot your server. You will miss blocks with this option!
 
