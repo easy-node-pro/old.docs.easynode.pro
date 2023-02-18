@@ -18,10 +18,10 @@
   },
   "homepage": "https://github.com/easy-node-pro/guides.easynode.pro#readme",
   "dependencies": {
-    "next": "^13.1.5",
+    "next": "^13.1.6",
     "nextjs-google-analytics": "^2.3.0",
-    "nextra": "2.2.13",
-    "nextra-theme-docs": "2.2.13",
+    "nextra": "2.2.14",
+    "nextra-theme-docs": "2.2.14",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@types/gtag.js": "^0.0.12",
-    "@types/node": "18.11.18",
-    "typescript": "^4.9.4"
+    "@types/node": "18.14.0",
+    "typescript": "^4.9.5"
   }
 }
