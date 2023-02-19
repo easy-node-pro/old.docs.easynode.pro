@@ -36,7 +36,7 @@ Security Notes:
         lock_passwd: true
         shell: /bin/bash
         ssh-authorized-keys:
-          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD5BlbwhmNr8OZ2DhrQJ7M4XMbzXAMhoLZAoDOIoPOcwtGo50W761nKpKmW3pn3uqXfL/GkPSuTvIrILdKHwgVLRUKY/tS3A3BGzSiOY3BoIdsCJPcYeErQciEWHMb0ARBji0qFROwKAdn6LI6JilgrWKE8HtCuqURMdMLThqWgDedBcn99TOcVJa/HWt37dJGajCIoK3iIvjDGW5WVRrirhAEh4IbHk0DC6uqOaA1i0IhWQERBawoQrSupB1vVBB0iHw1UuLzT40gLHb3kcbuz2oAITaAIOeQ4mqVF4wWQQJqYZudMAE96k8Ct6VmkvLFhmDDVH1dqUbKQ6iA5I0p596YwM50LxwAj0/NKpgWBbw3mWcubipTLDkABobs7ewb+s2ABZTSRt9rCi6rG+MyZprRGM7NQYjA/vWCb26mt3YqUfLbkWHnrwpUhuD/EvDK1Bv9uP7a/n0kDcIY9kWQLZ0tLzZZC4taxj8qrgD82l571cbPPcrkVPvxjolZC2UrWCQ+xwx5lc+QbIdklxsoLOl0XR73WVgNGrNpkqMiT99FiF05OBZj+cxtuUWOPV/K9SGbAlL3um3pEyMm8/bTHBy+MYzSDHJe+HjNvqSaWe5OAUzHBZC3tIFbgRdbtPnWSMAmsv3cwClBcX/UxiyEFti7WjTlcTKjUkFMDDcfi5Q==
+          - ssh-rsa [Your Key]
         sudo:
           - ALL=(ALL) NOPASSWD:ALL
           
@@ -58,6 +58,15 @@ Security Notes:
       - tree
       - zip
       - unzip
+
+    runcmd:
+      - sed -i 's/\#\?Port .\+/Port 2222/‘ /etc/ssh/sshd_config
+      - sed -i 's/\#\?UsePAM .\+/UsePAM yes/' /etc/ssh/sshd_config
+      - sed -i 's/\#\?PermitRootLogin .\+/PermitRootLogin no/' /etc/ssh/sshd_config
+      - sed -i 's/\#\?PasswordAuthentication .\+/PasswordAuthentication no/' /etc/ssh/sshd_config
+      - sed -i -e '$aAuthenticationMethods publickey' /etc/ssh/sshd_config
+      - sed -i -e '/^@include common-auth/s/^.*$/#@include common-auth/' /etc/pam.d/sshd
+      - service sshd restart
 
     power_state:
       mode: reboot
@@ -86,7 +95,7 @@ Security Notes:
         lock_passwd: true
         shell: /bin/bash
         ssh-authorized-keys:
-          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD5BlbwhmNr8OZ2DhrQJ7M4XMbzXAMhoLZAoDOIoPOcwtGo50W761nKpKmW3pn3uqXfL/GkPSuTvIrILdKHwgVLRUKY/tS3A3BGzSiOY3BoIdsCJPcYeErQciEWHMb0ARBji0qFROwKAdn6LI6JilgrWKE8HtCuqURMdMLThqWgDedBcn99TOcVJa/HWt37dJGajCIoK3iIvjDGW5WVRrirhAEh4IbHk0DC6uqOaA1i0IhWQERBawoQrSupB1vVBB0iHw1UuLzT40gLHb3kcbuz2oAITaAIOeQ4mqVF4wWQQJqYZudMAE96k8Ct6VmkvLFhmDDVH1dqUbKQ6iA5I0p596YwM50LxwAj0/NKpgWBbw3mWcubipTLDkABobs7ewb+s2ABZTSRt9rCi6rG+MyZprRGM7NQYjA/vWCb26mt3YqUfLbkWHnrwpUhuD/EvDK1Bv9uP7a/n0kDcIY9kWQLZ0tLzZZC4taxj8qrgD82l571cbPPcrkVPvxjolZC2UrWCQ+xwx5lc+QbIdklxsoLOl0XR73WVgNGrNpkqMiT99FiF05OBZj+cxtuUWOPV/K9SGbAlL3um3pEyMm8/bTHBy+MYzSDHJe+HjNvqSaWe5OAUzHBZC3tIFbgRdbtPnWSMAmsv3cwClBcX/UxiyEFti7WjTlcTKjUkFMDDcfi5Q==
+          - ssh-rsa [Your Key]
         sudo:
           - ALL=(ALL) NOPASSWD:ALL
           
@@ -147,7 +156,7 @@ Security Notes:
         lock_passwd: true
         shell: /bin/bash
         ssh-authorized-keys:
-          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD5BlbwhmNr8OZ2DhrQJ7M4XMbzXAMhoLZAoDOIoPOcwtGo50W761nKpKmW3pn3uqXfL/GkPSuTvIrILdKHwgVLRUKY/tS3A3BGzSiOY3BoIdsCJPcYeErQciEWHMb0ARBji0qFROwKAdn6LI6JilgrWKE8HtCuqURMdMLThqWgDedBcn99TOcVJa/HWt37dJGajCIoK3iIvjDGW5WVRrirhAEh4IbHk0DC6uqOaA1i0IhWQERBawoQrSupB1vVBB0iHw1UuLzT40gLHb3kcbuz2oAITaAIOeQ4mqVF4wWQQJqYZudMAE96k8Ct6VmkvLFhmDDVH1dqUbKQ6iA5I0p596YwM50LxwAj0/NKpgWBbw3mWcubipTLDkABobs7ewb+s2ABZTSRt9rCi6rG+MyZprRGM7NQYjA/vWCb26mt3YqUfLbkWHnrwpUhuD/EvDK1Bv9uP7a/n0kDcIY9kWQLZ0tLzZZC4taxj8qrgD82l571cbPPcrkVPvxjolZC2UrWCQ+xwx5lc+QbIdklxsoLOl0XR73WVgNGrNpkqMiT99FiF05OBZj+cxtuUWOPV/K9SGbAlL3um3pEyMm8/bTHBy+MYzSDHJe+HjNvqSaWe5OAUzHBZC3tIFbgRdbtPnWSMAmsv3cwClBcX/UxiyEFti7WjTlcTKjUkFMDDcfi5Q==
+          - ssh-rsa [Your Key]
         sudo:
           - ALL=(ALL) NOPASSWD:ALL
           
@@ -197,7 +206,7 @@ Security Notes:
         lock_passwd: true
         shell: /bin/bash
         ssh-authorized-keys:
-          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD5BlbwhmNr8OZ2DhrQJ7M4XMbzXAMhoLZAoDOIoPOcwtGo50W761nKpKmW3pn3uqXfL/GkPSuTvIrILdKHwgVLRUKY/tS3A3BGzSiOY3BoIdsCJPcYeErQciEWHMb0ARBji0qFROwKAdn6LI6JilgrWKE8HtCuqURMdMLThqWgDedBcn99TOcVJa/HWt37dJGajCIoK3iIvjDGW5WVRrirhAEh4IbHk0DC6uqOaA1i0IhWQERBawoQrSupB1vVBB0iHw1UuLzT40gLHb3kcbuz2oAITaAIOeQ4mqVF4wWQQJqYZudMAE96k8Ct6VmkvLFhmDDVH1dqUbKQ6iA5I0p596YwM50LxwAj0/NKpgWBbw3mWcubipTLDkABobs7ewb+s2ABZTSRt9rCi6rG+MyZprRGM7NQYjA/vWCb26mt3YqUfLbkWHnrwpUhuD/EvDK1Bv9uP7a/n0kDcIY9kWQLZ0tLzZZC4taxj8qrgD82l571cbPPcrkVPvxjolZC2UrWCQ+xwx5lc+QbIdklxsoLOl0XR73WVgNGrNpkqMiT99FiF05OBZj+cxtuUWOPV/K9SGbAlL3um3pEyMm8/bTHBy+MYzSDHJe+HjNvqSaWe5OAUzHBZC3tIFbgRdbtPnWSMAmsv3cwClBcX/UxiyEFti7WjTlcTKjUkFMDDcfi5Q==
+          - ssh-rsa [Your Key]
         sudo:
           - ALL=(ALL) NOPASSWD:ALL
           
