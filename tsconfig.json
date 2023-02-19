@@ -15,7 +15,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/404.mdx", "pages/500.mdx"],
-  "exclude": ["node_modules"],
-  "types": ["@types/gtag.js"]
+  "include": ["../next-env.d.ts", "**/*.ts", "**/*.tsx", "../theme.config.tsx"],
+  "exclude": ["node_modules"]
 }

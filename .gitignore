@@ -1,22 +1,2 @@
-.DS_Store
-.next/
-.next/*
-node_modules/*
-node_modules/
-yarn-error.log
-.pnpm-debug.log
-dist/
-*/**/.turbo
-# Theme styles
-packages/nextra-theme-*/style.css
-
-# Stork related
-*/**/public/*.st
-*/**/public/*.toml
-
-.vercel
-.idea/
-.eslintcache
-.env
-# Local Netlify folder
-.netlify
+.next
+node_modules
