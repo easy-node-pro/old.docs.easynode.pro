@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@types/node': 18.11.10
   next: ^13.0.6
+  nextjs-google-analytics: ^2.3.0
   nextra: latest
   nextra-theme-docs: latest
   react: ^18.2.0
@@ -11,6 +12,7 @@ specifiers:
 
 dependencies:
   next: 13.0.6_biqbaboplfbrettd7655fr4n2y
+  nextjs-google-analytics: 2.3.0_next@13.0.6+react@18.2.0
   nextra: 2.2.14_6jx7hpii6hgsrmhxgqrmo3277u
   nextra-theme-docs: 2.2.14_3dlgxhjbodg5wy6dtxo6zbkbxe
   react: 18.2.0
@@ -648,6 +650,14 @@ packages:
   /focus-visible/5.2.0:
     resolution: {integrity: sha512-Rwix9pBtC1Nuy5wysTmKy+UjbDJpIfg8eHjw0rjZ1mX4GNLz1Bmd16uDpI3Gk1i70Fgcs8Csg2lPm8HULFg9DQ==}
     dev: false
+
+  /fsevents/2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
 
   /get-stream/3.0.0:
     resolution: {integrity: sha512-GlhdIUuVakc8SJ6kK0zAFbiGzRFzNnY4jUuEbV9UROo4Y+0Ny4fjvcZFVTeDA4odpFyOQzaw6hXukJSq/f28sQ==}
@@ -1560,6 +1570,18 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
+    dev: false
+
+  /nextjs-google-analytics/2.3.0_next@13.0.6+react@18.2.0:
+    resolution: {integrity: sha512-MRL2/M01qxZtq+6m+J3ZBjNIQWGQnudsrH6VberIzPftrLR0jqV4Abvhr50v9xAVhloIdZpYxZbFYO3VXH1FMg==}
+    peerDependencies:
+      next: '>=11.0.0'
+      react: '>=17.0.0'
+    dependencies:
+      next: 13.0.6_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: false
 
   /nextra-theme-docs/2.2.14_3dlgxhjbodg5wy6dtxo6zbkbxe:
