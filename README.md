@@ -1,10 +1,23 @@
-# EasyNode.PRO - guides.easynode.pro
+# Nextra Docs Template 
 
-## Our original Validator Companion Guide Documentation Site
+This is a template for creating documentation with [Nextra](https://nextra.site).
 
-Hosted at [https://guides.easynode.pro](https://guides.easynode.pro)
+[**Live Demo →**](https://nextra-docs-template.vercel.app)
 
-- New Validators - Our original Companion Guide
-- Experienced Validators - Our Validator Toolbox Guide
+[![](.github/screenshot.png)](https://nextra-docs-template.vercel.app)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/92a2f50c-bb9d-4154-8a92-3aa481f364ce/deploy-status)](https://app.netlify.com/sites/guideseasynodepro/deploys)
+## Quick Start
+
+Click the button to clone this repository and deploy it on Vercel:
+
+[![](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fshuding%2Fnextra-docs-template&showOptionalTeamCreation=false)
+
+## Local Development
+
+First, run `pnpm i` to install the dependencies.
+
+Then, run `pnpm dev` to start the development server and visit localhost:3000.
+
+## License
+
+This project is licensed under the MIT License.
