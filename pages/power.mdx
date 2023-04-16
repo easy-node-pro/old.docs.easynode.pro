@@ -17,108 +17,45 @@ Security Notes:
   <Tab>
     ```text copy
     #cloud-config
-
-    package_update: true
-
-    manage-resolv-conf: true
-
-    resolv_conf:
-      nameservers:
-        - '8.8.8.8'
-        - '8.8.4.4'
-        - '1.1.1.1'
-
-    users:
-      - name: servicefindora
-        groups:
-          - docker
-          - sudo
-        lock_passwd: true
-        shell: /bin/bash
-        ssh-authorized-keys:
-          - ssh-rsa [Your Key]
-        sudo:
-          - ALL=(ALL) NOPASSWD:ALL
-          
-    packages:
-      - docker.io
-      - docker-compose
-      - fail2ban
-      - git
-      - bind9-dnsutils
-      - python3-pip
-      - python3-dotenv
-      - ufw
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - gnupg-agent
-      - software-properties-common
-      - bat
-      - tree
-      - zip
-      - unzip
-
-    runcmd:
-      - sed -i 's/\#\?Port .\+/Port 2222/‘ /etc/ssh/sshd_config
-      - sed -i 's/\#\?UsePAM .\+/UsePAM yes/' /etc/ssh/sshd_config
-      - sed -i 's/\#\?PermitRootLogin .\+/PermitRootLogin no/' /etc/ssh/sshd_config
-      - sed -i 's/\#\?PasswordAuthentication .\+/PasswordAuthentication no/' /etc/ssh/sshd_config
-      - sed -i -e '$aAuthenticationMethods publickey' /etc/ssh/sshd_config
-      - sed -i -e '/^@include common-auth/s/^.*$/#@include common-auth/' /etc/pam.d/sshd
-      - service sshd restart
-
-    power_state:
-      mode: reboot
-      condition: True
+  users:
+    - name: servicefindora
+      groups: sudo
+      shell: /bin/bash
+      sudo: ['ALL=(ALL) NOPASSWD:ALL']
+      ssh-authorized-keys:
+        - ssh-rsa ...Your Key Here...
+  package_upgrade: true
+  runcmd:
+    - apt-get update
+    - apt-get upgrade -y
+    - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+    - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    - apt install apt-transport-https ca-certificates curl software-properties-common docker-ce docker-ce-cli dnsutils docker-compose containerd.io bind9-dnsutils git python3-pip python3-dotenv unzip -y
+    - systemctl start docker
+    - systemctl enable docker
+    - usermod -aG docker servicefindora
     ```
   </Tab>
-  <Tab>
+    <Tab>
     ```text copy
     #cloud-config
-
-    package_update: true
-
-    manage-resolv-conf: true
-
-    resolv_conf:
-      nameservers:
-        - '8.8.8.8'
-        - '8.8.4.4'
-        - '1.1.1.1'
-
     users:
       - name: servicefindora
-        groups:
-          - docker
-          - sudo
-        lock_passwd: true
+        groups: sudo
         shell: /bin/bash
+        sudo: ['ALL=(ALL) NOPASSWD:ALL']
         ssh-authorized-keys:
-          - ssh-rsa [Your Key]
-        sudo:
-          - ALL=(ALL) NOPASSWD:ALL
-          
-    packages:
-      - docker.io
-      - docker-compose
-      - fail2ban
-      - git
-      - bind9-dnsutils
-      - python3-pip
-      - python3-dotenv
-      - ufw
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - gnupg-agent
-      - software-properties-common
-      - bat
-      - tree
-      - zip
-      - unzip
-
+          - ssh-rsa ...Your Key Here...
+    package_upgrade: true
     runcmd:
+      - apt-get update
+      - apt-get upgrade -y
+      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+      - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+      - apt install apt-transport-https ca-certificates curl software-properties-common docker-ce docker-ce-cli dnsutils docker-compose containerd.io bind9-dnsutils git python3-pip python3-dotenv unzip -y
+      - systemctl start docker
+      - systemctl enable docker
+      - usermod -aG docker servicefindora
       - ufw default deny incoming
       - ufw default allow outgoing
       - ufw allow 22/tcp
@@ -128,118 +65,56 @@ Security Notes:
       - ufw allow 8669/tcp
       - ufw allow 26657/tcp
       - ufw enable
-
-    power_state:
-      mode: reboot
-      condition: True
     ```
   </Tab>
   <Tab>
     ```text copy
     #cloud-config
-
-    package_update: true
-
-    manage-resolv-conf: true
-
-    resolv_conf:
-      nameservers:
-        - '8.8.8.8'
-        - '8.8.4.4'
-        - '1.1.1.1'
-
     users:
       - name: serviceharmony
-        groups:
-          - docker
-          - sudo
-        lock_passwd: true
+        groups: sudo
         shell: /bin/bash
+        sudo: ['ALL=(ALL) NOPASSWD:ALL']
         ssh-authorized-keys:
-          - ssh-rsa [Your Key]
-        sudo:
-          - ALL=(ALL) NOPASSWD:ALL
-          
-    packages:
-      - docker.io
-      - docker-compose
-      - fail2ban
-      - git
-      - bind9-dnsutils
-      - python3-pip
-      - python3-dotenv
-      - ufw
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - gnupg-agent
-      - software-properties-common
-      - bat
-      - tree
-      - zip
-      - unzip
-
-    power_state:
-      mode: reboot
-      condition: True
-    ```
-  </Tab>
-  <Tab>
-    ```text copy
-    #cloud-config
-
-    package_update: true
-
-    manage-resolv-conf: true
-
-    resolv_conf:
-      nameservers:
-        - '8.8.8.8'
-        - '8.8.4.4'
-        - '1.1.1.1'
-
-    users:
-      - name: serviceharmony
-        groups:
-          - docker
-          - sudo
-        lock_passwd: true
-        shell: /bin/bash
-        ssh-authorized-keys:
-          - ssh-rsa [Your Key]
-        sudo:
-          - ALL=(ALL) NOPASSWD:ALL
-          
-    packages:
-      - docker.io
-      - docker-compose
-      - fail2ban
-      - git
-      - bind9-dnsutils
-      - python3-pip
-      - python3-dotenv
-      - ufw
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - gnupg-agent
-      - software-properties-common
-      - bat
-      - tree
-      - zip
-      - unzip
-
+          - ssh-rsa ...Your Key Here...
+    package_upgrade: true
     runcmd:
+      - apt-get update
+      - apt-get upgrade -y
+      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+      - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+      - apt install apt-transport-https ca-certificates curl software-properties-common docker-ce docker-ce-cli dnsutils docker-compose containerd.io bind9-dnsutils git python3-pip python3-dotenv unzip -y
+      - systemctl start docker
+      - systemctl enable docker
+      - usermod -aG docker serviceharmony
+    ```
+  </Tab>
+  <Tab>
+    ```text copy
+    #cloud-config
+    users:
+      - name: serviceharmony
+        groups: sudo
+        shell: /bin/bash
+        sudo: ['ALL=(ALL) NOPASSWD:ALL']
+        ssh-authorized-keys:
+          - ssh-rsa ...Your Key Here...
+    package_upgrade: true
+    runcmd:
+      - apt-get update
+      - apt-get upgrade -y
+      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+      - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+      - apt install apt-transport-https ca-certificates curl software-properties-common docker-ce docker-ce-cli dnsutils docker-compose containerd.io bind9-dnsutils git python3-pip python3-dotenv unzip -y
+      - systemctl start docker
+      - systemctl enable docker
+      - usermod -aG docker serviceharmony
       - ufw default deny incoming
       - ufw default allow outgoing
       - ufw allow 22/tcp
       - ufw allow 6000/tcp
       - ufw allow 9000/tcp
       - ufw enable
-
-    power_state:
-      mode: reboot
-      condition: True
     ```
   </Tab>
 </Tabs>
