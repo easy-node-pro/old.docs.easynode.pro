@@ -59,7 +59,7 @@ You can see your FRA validator address by running `fn show` or toolbox optioin #
 
 Here we're going to cover the command to create your validator and the commands you'll use after you've created your validator.  
 
-<Tabs items={["Create Validator", "Update Validator Info", "Update Fee", "Update Both!"]} defaultIndex="0">
+<Tabs items={["Create Validator", "Add Stake", "Update Validator Info", "Update Fee", "Update Both!"]} defaultIndex="0">
   <Tab>
     Here's an example of the creation command. Note that you only are able to send the creation command one time. Customize this command to your needs before sending:
 
@@ -71,6 +71,13 @@ Here we're going to cover the command to create your validator and the commands 
 
     - Stake 15,000 FRAs with a commision rate of 2% using your staker_memo file
     - Note: that is 15000 \* 1000000 FRA units in the example
+  </Tab>
+  <Tab>
+    Here's an example of adding 10,000 FRA stake to your validator self stake total:
+
+    ```text copy
+    fn stake --append -n $((10000 * 1000000))
+    ```
   </Tab>
   <Tab>
     Simply edit your staker_memo file and then re-submit the updated information with following command:  
