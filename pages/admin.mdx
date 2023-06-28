@@ -264,21 +264,21 @@ Snippets are shortcuts in termius that you can run with 1 click. Here's some of 
     To launch Harmony Toolbox with the latest updates and return you to the ~/harmony folder when you exit, make the snippet:  
     
     ```text copy 
-    cd ~/harmony-toolbox && git pull && pip3 install -r requirements.txt --quiet && cd ~/harmony && python3 ~/harmony-toolbox/src/menu.py 
+    cd ~/harmony && bash -x ~/harmony.sh 
     ```
   </Tab>
   <Tab>
     To show your stats with our script without opening the Harmony Toolbox, make the snippet:  
     
     ```text copy
-    python3 ~/harmony-toolbox/src/multi_stats.py
+    bash -x ~/harmony.sh -s
     ```
   </Tab>
   <Tab>
     To launch Findora Toolbox with the latest updates and return you to the user home folder when you exit, make the snippet:  
     
     ```text copy 
-    cd ~/findora-toolbox/ && git pull && pip3 install -r requirements.txt --quiet && cd ~/ && python3 ~/findora-toolbox/src/app.py 
+    cd ~/ && bash -x ~/findora.sh
     ```
   </Tab>
 </Tabs>

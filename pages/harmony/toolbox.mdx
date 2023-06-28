@@ -34,7 +34,6 @@ Harmony Validator Toolbox repository has <Stars /> 🌟 on [GitHub](https://gith
 If you enjoy our validator toolbox software can you head to our page and give us a 🌟 today? Thank you!
 
 ### Code Stats
-- [![Codacy Badge](https://app.codacy.com/project/badge/Grade/215c4479f0304b40a535f7e84ce75f55)](https://www.codacy.com/gh/easy-node-pro/harmony-toolbox/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=easy-node-pro/harmony-toolbox&amp;utm_campaign=Badge_Grade)
 - [![Codacy Security Scan](https://github.com/easy-node-pro/harmony-toolbox/actions/workflows/codacy.yml/badge.svg?branch=main)](https://github.com/easy-node-pro/harmony-toolbox/actions/workflows/codacy.yml)
 - [![Discord Badge](https://img.shields.io/badge/chat-discord-purple?logo=discord)](https://bit.ly/easynodediscord)
 - [![Stake Now Badge](https://img.shields.io/badge/stake-harmony-brightgreen)](https://bit.ly/easynode)
@@ -57,14 +56,14 @@ We put together a video going over the toolbox, you can catch that here!
 Install Ubuntu dependencies, clone our Github repository, and install Python Requirements with the following command:
 
 ```text copy
-sudo apt-get install dnsutils git python3-pip python3-dotenv unzip tmux -y && cd ~/ && git clone https://github.com/easy-node-pro/harmony-toolbox.git && cd ~/harmony-toolbox && pip3 install -r requirements.txt
+cd ~/ && sudo apt-get install dnsutils git python3-pip python3-dotenv unzip tmux -y && wget -O harmony.sh https://raw.githubusercontent.com/easy-node-pro/harmony-toolbox/main/src/bin/harmony.sh && chmod +x harmony.sh
 ```
 
 #### Launch Validator Toolbox
 If this is the first time launching the toolbox you'll get prompted to answer some questions before we install Harmony on the new server! To start installation run:
 
 ```text copy
-python3 ~/harmony-toolbox/src/install.py
+cd ~/ && ./harmony.sh
 ```
 
 ### The Setup Menus
@@ -245,15 +244,15 @@ Decide on your max-change-rate and max-rate **_before sending_** your command. T
 Now it's installed, how do we start it up?
 
 ### Launch Toolbox Menu
-To launch the Management Menu we suggest the following string to check for updates and launch each time you'd like to run the menu:
+To launch the Management Menu we suggest the following to check for updates and launch each time you'd like to run the menu:
 
 ```text copy
-cd ~/harmony-toolbox && git pull && pip3 install -r requirements.txt --quiet && cd ~/harmony && python3 ~/harmony-toolbox/src/menu.py
+bash -x ~/harmony.sh
 ```
 
 ### Get Stats
 If you'd like to get only your stats without launching the full toolbox, run the following command:
 
 ```text copy
-python3 ~/harmony-toolbox/src/multi_stats.py
+bash -x ~/harmony.sh -s
 ```

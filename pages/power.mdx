@@ -143,10 +143,10 @@ Show all options with:
 ## Harmony
 To pull and install the Harmony Validator Toolbox, run the following command:
 ```text copy
-cd ~/ && git clone https://github.com/easy-node-pro/harmony-toolbox.git ~/harmony-toolbox && cd harmony-toolbox && pip3 install -r requirements.txt && python3 ~/harmony-toolbox/src/install.py
+cd ~/ && sudo apt-get install dnsutils git python3-pip python3-dotenv unzip tmux -y && wget -O harmony.sh https://raw.githubusercontent.com/easy-node-pro/harmony-toolbox/main/src/bin/harmony.sh && chmod +x harmony.sh && bash ~/harmony.sh
 ```
 
 The installer will start up, ask some quesitons and install harmony. To re-launch the menu with the latest updates after installation completes, run:
 ```text copy
-cd ~/harmony-toolbox && git pull && pip3 install -r requirements.txt --quiet && cd ~/harmony && python3 ~/harmony-toolbox/src/menu.py
+bash -x ~/harmony.sh
 ```
