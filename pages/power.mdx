@@ -10,8 +10,7 @@ To use the code below simply replace the ssh-rsa key with your id_rsa.pub key an
 Security Notes:
 - You can customize any of this!
 - We included a config that sets up UFW for you if you use it! Cloud providers may have their own firewall, your choice!
-- We set the SSH port to 2222, you can change this to whatever you'd like. Make sure to change the ufw rule that matches.
-- Inject your `- ssh-rsa ...Your Key Here...` into the cloud-init users section below.
+- Inject your `- ssh-rsa ...Your Key Here...` into the cloud-init users section below as 1 line with the full key.
 
 <Tabs items={["Findora cloud-init", "Findora w/ UFW Settings cloud-init", "Harmony cloud-init", "Harmony w/ UFW Settings cloud-init"]} defaultIndex="0">
   <Tab>
