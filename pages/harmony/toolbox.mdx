@@ -132,7 +132,7 @@ You will now start cloning your shards. If you choose shard 1-3 that shard will 
 ![Shard 0 on the way!](/installer_8b.png)
 
 #### Install completed!
-![Install complete!](/image_17.png)
+![Install complete!](/installer_9.png)
 
 As mentioned earlier, if you do not have sudoless root access, you will be prompted for a passwords. Keep an eye out for any prompts.
 
@@ -149,7 +149,7 @@ See our notes on [creating BLS Keys here](/harmony/companion#bls-keys) but if yo
 Here's the example command given in the official guide below. I'll suggest some updates and give an example command in the following steps.
 
 <Tabs
-  items={["Create Mainnet", "Create Testnet"]}
+  items={["Create Mainnet"]}
   defaultIndex="0"
 >
   <Tab>
@@ -158,18 +158,7 @@ Here's the example command given in the official guide below. I'll suggest some 
         --validator-addr [ONE ADDRESS] --amount 10000 \
         --bls-pubkeys [BLS PUBLIC KEY1],[BLS PUBLIC KEY2] \
         --name "[NAME]" --identity "[IDENTITY]" --details "DETAILS" \
-        --security-contact "CONTACT" --website "YOUR-WEBSITE.COM" \
-        --max-change-rate 0.1 --max-rate 0.1 --rate 0.1 \
-        --max-total-delegation 100000000 --min-self-delegation 10000 --passphrase --gas-price 100
-    ```
-  </Tab>
-  <Tab>
-    ```text copy
-    ./hmy --node="https://api.s0.b.hmny.io" staking create-validator \
-        --validator-addr [ONE ADDRESS] --amount 10000 \
-        --bls-pubkeys [BLS PUBLIC KEY1],[BLS PUBLIC KEY2] \
-        --name "[NAME]" --identity "[IDENTITY]" --details "DETAILS" \
-        --security-contact "CONTACT" --website "YOUR-WEBSITE.COM" \
+        --security-contact "EMAIL_ADDRESS" --website "YOUR-WEBSITE.COM" \
         --max-change-rate 0.1 --max-rate 0.1 --rate 0.1 \
         --max-total-delegation 100000000 --min-self-delegation 10000 --passphrase --gas-price 100
     ```
@@ -186,7 +175,7 @@ You want to setup your logo for the validator. [Here's the Adding A Validator Lo
 With that in mind, the only extra item we suggest to include is the --identity information. Here's an example with a fake address and information as an example.
 
 <Tabs
-  items={["Create Mainnet", "Create Testnet"]}
+  items={["Create Mainnet"]}
   defaultIndex="0"
 >
   <Tab>
@@ -195,18 +184,7 @@ With that in mind, the only extra item we suggest to include is the --identity i
         --validator-addr one1rka0v5rct0857f2f*6ahn0cyd89uvravr3yjw --amount 10000 \
         --bls-pubkeys a243b3a090063bae6aeca9215*05de1a94a033c50ab98ed98c50ab98ed984c9cf23513585e1af0cc4c9cf23513585e1af0cc \
         --name "My Awesome Validator" --identity 05de1a94a0*33c50ab98ed98 --details "All your validator notes that show up on the staking.harmony.one site" \
-        --security-contact "myemail@address.com" --website "your-website.com" \
-        --max-change-rate 0.1 --max-rate 0.1 --rate 0.1 \
-        --max-total-delegation 100000000 --min-self-delegation 10000 --passphrase --gas-price 100
-    ```
-  </Tab>
-  <Tab>
-    ```text copy
-    ./hmy --node="https://api.s0.b.hmny.io" staking create-validator \
-        --validator-addr one1rka0v5rct0857f2f*6ahn0cyd89uvravr3yjw --amount 10000 \
-        --bls-pubkeys a243b3a090063bae6aeca9215*05de1a94a033c50ab98ed98c50ab98ed984c9cf23513585e1af0cc4c9cf23513585e1af0cc \
-        --name "My Awesome Validator" --identity 05de1a94a0*33c50ab98ed98 --details "All your validator notes that show up on the staking.harmony.one site" \
-        --security-contact "myemail@address.com" --website "your-website.com" \
+        --security-contact "a.working.email@address.com" --website "https://your-website.com" \
         --max-change-rate 0.1 --max-rate 0.1 --rate 0.1 \
         --max-total-delegation 100000000 --min-self-delegation 10000 --passphrase --gas-price 100
     ```
