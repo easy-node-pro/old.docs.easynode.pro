@@ -66,67 +66,63 @@ If this is the first time launching the toolbox you'll get prompted to answer so
 cd ~/ && ./harmony.sh
 ```
 
-### The Setup Menus
+### Setup Menus
 Here's more information about each setup menu along the way!
 
 #### Loading Screen
 ![Just our loading screen, first time you run it, the bottom banner will read this.](/harmony_loader.png)
 
-#### First run detected!
-![First run, first menu](/image_38.png)
-
-**Start Installer Application**
-Run this option if you are loading a brand new server for the very first time.
-
-**Start Validator Toolbox Menu**
-Run this option if you are loading the toolbox on a server that is already running as a harmony validator node.
-
 #### Shard Choice
-![Pick a shard, any shard!](/image_39.png)
+![Pick a shard, any shard!](/installer_1.png)
 
 Simply pick the shard this node will run on. It's a personal preference, although we suggest looking at the [smart stake site](https://harmony.smartstake.io/election) and determining which shard of 1-3 has the lowest # of keys and using that shard.
 
-#### Node Type
-![Pick your node type](/image_33.png)
+#### Installation Location
+You can choose to use the default location of ~/harmony or setup a custom location.  
 
-**Standard Signing Node**
-Known to most as a "Harmony Validator" this option loads a wallet and saves your passphrase in ~/harmony/passphrase.txt
+For being compatible with the toolbox we suggest either /home/serviceharmony/harmony or adding your shard # to the end, example for shard 1: /home/serviceharmony/harmony1
 
-**Full Node Non Validating Dev/RPC**
-Choose this option to load a system that doesn't use a wallet. Mostly used by developers and RPC services
+![Install in default location](/installer_2.png)
 
-#### Testnet or Mainnet
-![Choose testnet or mainnet for your server](/image_34.png)
+Example of using a custom location:
 
-**Mainnet**
+![Install custom #1](/installer_3.png)
 
-The main Harmony ONE Blockchain for normal operations.
+![Install custom #2](/installer_4.png)
 
-**Testnet**
+#### File Setup
 
-The Harmony ONE Testnet, use with test tokens. You can [visit our discord community](https://bit.ly/easynodediscord) if you need test network coins, we have plenty.
+Files will now configure since we know the shard and location.
 
-#### Express Install or Manual Choices
-![Express or Manual?](/image_41.png)
+![Files Installed](/installer_5.png)
 
-**Express Install**
+### Wallet Configuration
+If you'd like to use our claim and send or autobidder in the future you'll have to restore a wallet via mnemonic or private key. 
 
-Assumes you want the kitchen sink for your validator. 
+![Wallet Config](/installer_6.png)
 
-**Manual Approval**
-This lets you choose y/n on every option along the way.
+You'll be asked to recover a wallet, answer yes to restore a private seed or mnemonic phrase. If you answer no, we'll still ask for your validator address in one1 or 0x format.
 
-#### Password File \(Regular Signing Validator Nodes Only\)
-![Password prompt, enter your wallet password, confirm it to continue](/image_16.png)
+#### Wallet Recovery
+If you answered No above, instead you'll get this prompt to input your address with verification.
 
-Enter a password for your wallet on this node. It's unique to this server
+![Save wallet address for toolbox](/installer_7b.png)
 
-#### Recover Wallet \(Regular Signing Validator Nodes Only\)
-![Recover mnemonic phrase into wallet directly](/image_40.png)
+If you answered Yes above, you'll get this menu to load your wallet.
 
-Add your mnemonic phrase here directly into the hmy file interface. We do not store or save this information.
+![Recover mnemonic phrase into wallet directly](/installer_7.png)
 
-**New Users** - If you do not have a wallet yet, press ctrl+c to skip wallet recovery and after installation you can manually create or import a wallet of your choosing.
+You'll be asked directly by the hmy app for your phrase or mnemonic. We do not store or save this information. When selecting an option you'll first be prompted to set a wallet password for this server. This will be saved in your harmony directory as passphrase.txt.
+
+![Password](/installer_7c.png)
+
+After setting up your password for the server, you'll be prompted to provide your private key or mnemonic depending on your choice.
+
+![Private Wallet Info](/installer_7d.png)
+
+Confirm your password again, and verify your proper address is displayed.
+
+![Wallet Info](/installer_7e.png)
 
 ### Clone Shards
 You will now start cloning your shards. If you choose shard 1-3 that shard will download before shard 0. You can press ctrl+c to cancel downloading of any shard to move past that download.
