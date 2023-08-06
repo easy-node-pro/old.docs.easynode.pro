@@ -42,7 +42,10 @@ If you enjoy our validator toolbox software can you head to our page and give us
 We covered most of these things in the [admins tools section](/admin) but here's what you need:  
 - Linux server running Ubuntu 20.04/22.04 LTS
 - A regular user acocunt with root access
-  
+
+### Create A Wallet
+See our notes on [setting up a wallet here](/harmony/companion#validator-wallet) if you made it this far without one.
+
 That's it for the requirements, you're ready to connect to your new server and install the Harmony Validator Server Node software.
 
 ## Toolbox Installation Guide
@@ -68,9 +71,6 @@ cd ~/ && ./harmony.sh
 
 ### Setup Menus
 Here's more information about each setup menu along the way!
-
-#### Loading Screen
-![Just our loading screen, first time you run it, the bottom banner will read this.](/harmony_loader.png)
 
 #### Shard Choice
 ![Pick a shard, any shard!](/installer_1.png)
@@ -127,20 +127,17 @@ Confirm your password again, and verify your proper address is displayed.
 ### Clone Shards
 You will now start cloning your shards. If you choose shard 1-3 that shard will download before shard 0. You can press ctrl+c to cancel downloading of any shard to move past that download.
 
-![Shard 1 Incoming](/image_23.png)
+![Shard 1 Incoming](/installer_8.png)
 
-![Shard 0 on the way!](/image_36.png)
+![Shard 0 on the way!](/installer_8b.png)
 
 #### Install completed!
 ![Install complete!](/image_17.png)
 
-As mentioned earlier, if you do not have sudoless root access, you will be prompted for a password, which is often several lines up from the bottom of the screen and [sometimes hard to see](/harmony/toolbox/post#sudoless-root-skipped---application-install-starts-and-freezes-up).
+As mentioned earlier, if you do not have sudoless root access, you will be prompted for a passwords. Keep an eye out for any prompts.
 
 ## First Time Validator Extra Steps
 The next 3 sections need to be completed **after running the toolbox installer** but before running the management menu application for the first time as a brand new validator only. Since you're an experienced validator you should have already completed everything in this guide. I've left this for new people who may be attempting to "jump the line".
-
-### Create A Wallet
-See our notes on [setting up a wallet here](/harmony/companion#validator-wallet) if you made it this far without one.
 
 ### BLS Keys
 See our notes on [creating BLS Keys here](/harmony/companion#bls-keys) but if you are this far you should already have these.
