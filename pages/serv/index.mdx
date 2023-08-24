@@ -1,0 +1,59 @@
+import { Callout } from 'nextra-theme-docs'
+import Image from 'next/image'
+import { useSSG } from 'nextra/ssg'
+
+export const getStaticProps = ({ params }) => {
+  return fetch(`https://api.github.com/repos/easy-node-pro/guides.easynode.pro`)
+    .then((res) => res.json())
+    .then((repo) => ({
+      props: {
+        // We add an `ssg` field to the page props,
+        // which will be provided to the Nextra `useSSG` hook.
+        ssg: {
+          stars: repo.stargazers_count,
+        },
+      },
+      // The page will be considered as stale and regenerated every 60 seconds.
+      revalidate: 60,
+    }))
+}
+
+export const Stars = () => {
+  // Get the data from SSG, and render it as a component.
+  const { stars } = useSSG()
+  return <strong>{stars}</strong>
+}
+
+# SERV Validator Guides
+![Harmony Logo](/serv_logo.png)
+
+## What is a SERV Validator?
+TBD
+
+## New Validator Guide
+TBD
+
+## Validator Toolbox Guide
+TBD
+
+## The Easy Node Way
+When using our guides or tips you can always assume the following things that aren't really specified in the Harmony Documents. We call this "The Easy Node Way" which helps with organization and security:
+
+-  Setup a user account to run harmony
+  -  Don't use `root` or `harmony` as account names!!!
+  -  We suggest your username as something like `serviceharmony`
+-  Use a folder in your user home directory to store harmony
+  -  We suggest /home/serviceharmony/harmony
+
+## Validator Support Communities
+There is no setup help or support officially provided to validators by the blockchains you are your own help desk. It's always best to fully learn your system before going live on a blockchain. If you do get stuck you can always ask for help in:
+- [SERV Twitter](https://harmony.one/discord) is the best spot for all things Harmony first for fastest response.
+- More soon!
+
+## Subscribe to Easy Node
+Want to help us out for helping you out? Our subscriptons start as low as $5 a month!  
+
+Have a lot of questions? Become an 'Easy Technical Supporter' and unlock a subscribers only priority support chat!  
+
+Get more info here:  
+[Easy Node Discord Subscriptions](https://bit.ly/easynodediscord)
