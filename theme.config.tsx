@@ -123,7 +123,7 @@ export default {
           },
         ],
       },
-      titleTemplate: "%s  ⚡ docs.easynode.pro ⚡",
+      titleTemplate: "%s  ⚡ Docs.EasyNode.pro ⚡",
       twitter: {
         cardType: "summary_large_image",
         site: "https://docs.easynode.pro",
