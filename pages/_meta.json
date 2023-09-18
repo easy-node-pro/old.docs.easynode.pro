@@ -42,6 +42,16 @@
         "href": "https://easynode.pro",
         "newWindow": true
       },
+      "discord": {
+        "title": "Discord",
+        "href": "https://discord.com/servers/easynode-pro-blockchain-validators-404423550909284372",
+        "newWindow": true
+      },
+      "telegram": {
+        "title": "Telegram",
+        "href": "https://t.me/easynodestaking",
+        "newWindow": true
+      },
       "twitter": {
         "title": "Twitter",
         "href": "https://twitter.com/easynode",
@@ -50,11 +60,6 @@
       "youtube": {
         "title": "YouTube",
         "href": "https://youtube.com/@easynode",
-        "newWindow": true
-      },
-      "blogs": {
-        "title": "Blogs",
-        "href": "https://blogs.easynode.pro",
         "newWindow": true
       },
       "staking": {
