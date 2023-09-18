@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
  */
 export default {
   chat: {
-    link: "https://bit.ly/easynodediscord", // Next.js discord server,
+    link: "https://discord.com/servers/easynode-pro-blockchain-validators-404423550909284372", // Next.js discord server,
   },
   darkMode: true,
   docsRepositoryBase: "https://github.com/easy-node-pro/docs.easynode.pro",
@@ -91,7 +91,7 @@ export default {
         { content: "en", httpEquiv: "Content-Language" },
         { content: "#fff", name: "msapplication-TileColor" },
         { content: "/192x192_App_Icon.png", name: "msapplication-TileImage" },
-        { content: "EasyNode.PRO ⚡ Blockchain Docs", name: "description" },
+        { content: "EasyNode.PRO ⚡ Blockchain Documents and Guides", name: "description" },
         {
           content: "Our documents site. We help everyone crypto like a pro!",
           name: "og:description",
@@ -103,7 +103,7 @@ export default {
         },
         { content: "docs.easynode.pro", name: "twitter:site:domain" },
         { content: "https://docs.easynode.pro", name: "twitter:url" },
-        { content: "EasyNode.PRO ⚡ Blockchain Docs", name: "og:title" },
+        { content: "EasyNode.PRO ⚡ Blockchain Documents and Guides", name: "og:title" },
         {
           content: "https://docs.easynode.pro/twitter_card_800x418.jpg",
           name: "og:image",
