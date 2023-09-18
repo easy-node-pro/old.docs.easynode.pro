@@ -8,6 +8,9 @@ dependencies:
   '@mdx-js/loader':
     specifier: ^2.3.0
     version: 2.3.0(webpack@5.88.2)
+  '@next/mdx':
+    specifier: ^13.4.19
+    version: 13.4.19(@mdx-js/loader@2.3.0)
   next:
     specifier: ^13.0.6
     version: 13.0.6(react-dom@18.2.0)(react@18.2.0)
@@ -276,6 +279,21 @@ packages:
 
   /@next/env@13.0.6:
     resolution: {integrity: sha512-yceT6DCHKqPRS1cAm8DHvDvK74DLIkDQdm5iV+GnIts8h0QbdHvkUIkdOvQoOODgpr6018skbmSQp12z5OWIQQ==}
+    dev: false
+
+  /@next/mdx@13.4.19(@mdx-js/loader@2.3.0):
+    resolution: {integrity: sha512-EaWA30YxAqFcyQYNxCoL9/TCcZP1Nk6pvW0vf1M54qDAkAGiloWQqyttVKVbRz+qOYk92he6mBB4ej/7pmEinQ==}
+    peerDependencies:
+      '@mdx-js/loader': '>=0.15.0'
+      '@mdx-js/react': '>=0.15.0'
+    peerDependenciesMeta:
+      '@mdx-js/loader':
+        optional: true
+      '@mdx-js/react':
+        optional: true
+    dependencies:
+      '@mdx-js/loader': 2.3.0(webpack@5.88.2)
+      source-map: 0.7.4
     dev: false
 
   /@next/swc-android-arm-eabi@13.0.6:
