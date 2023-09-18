@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useSSG } from 'nextra/ssg'
 
 export const getStaticProps = ({ params }) => {
-  return fetch(`https://api.github.com/repos/easy-node-pro/guides.easynode.pro`)
+  return fetch(`https://api.github.com/repos/easy-node-pro/docs.easynode.pro`)
     .then((res) => res.json())
     .then((repo) => ({
       props: {

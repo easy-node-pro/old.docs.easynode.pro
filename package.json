@@ -1,7 +1,7 @@
 {
-  "name": "guides.easynode.pro",
+  "name": "docs.easynode.pro",
   "version": "0.0.1",
-  "description": "guides.easynode.pro",
+  "description": "docs.easynode.pro",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/easy-node-pro/guides.easynode.pro.git"
+    "url": "git+https://github.com/easy-node-pro/docs.easynode.pro.git"
   },
   "author": "Shu Ding <g@shud.in>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/easy-node-pro/guides.easynode.pro/issues"
+    "url": "https://github.com/easy-node-pro/docs.easynode.pro/issues"
   },
-  "homepage": "https://github.com/easy-node-pro/guides.easynode.pro#readme",
+  "homepage": "https://github.com/easy-node-pro/docs.easynode.pro#readme",
   "dependencies": {
     "next": "^13.0.6",
     "nextjs-google-analytics": "^2.3.0",
